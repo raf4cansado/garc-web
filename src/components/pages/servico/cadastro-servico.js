@@ -1,10 +1,11 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-function CadastroUsuario() {
+
+function CadastroServico() {
     return (
         <div class="container p-5 mb-3 bg-light text-dark">
-            <h2>Cadastro Usuário</h2>
+            <h2>Vendas</h2>
             <form>
                 <div class="row">
                     <div class="form-group col-md-1">
@@ -12,15 +13,15 @@ function CadastroUsuario() {
                         <input class="form-control" type="text" placeholder="COD " readonly />
                     </div>
                     <div class="form-group col-md-3">
-                        <label for="inputEmail4">Usuário:</label>
-                        <input type="text" class="form-control" id="inputEmail4" placeholder="Usuário" />
+                        <label for="inputEmail4">Produto:</label>
+                        <input type="text" class="form-control" id="inputEmail4" placeholder="Nome Produto" />
                     </div>
                     <div class="form-group col-md-5">
-                        <label for="inputPassword4">Nome:</label>
-                        <input type="text" class="form-control" id="inputPassword4" placeholder="Digite o Nome" />
+                        <label for="inputPassword4">Marca:</label>
+                        <input type="text" class="form-control" id="inputPassword4" placeholder="Marca" />
                     </div>
                     <div class="col-md-3">
-                        <label for="validationCustom04" class="form-label">Tipo Usuário</label>
+                        <label for="validationCustom04" class="form-label">Tipo Produto</label>
                         <select class="form-select" id="validationCustom04" required>
                             <option selected disabled value="">Choose...</option>
                             <option>Administrador</option>
@@ -28,19 +29,16 @@ function CadastroUsuario() {
                         </select>
                     </div>
                     <div class="form-group col-md-3">
-                        <label for="inputEmail4">CPF:</label>
-                        <input type="text" class="form-control" id="inputEmail4" placeholder="000.000.000-00" />
+                        <label for="inputEmail4">Cod. de Barras:</label>
+                        <input type="text" class="form-control" id="inputEmail4" placeholder="Cod. de Barras" />
                     </div>
-                    <div class="form-group col-md-3">
-                        <label for="inputPassword4">Telefone:</label>
-                        <input type="text" class="form-control" id="inputPassword4" placeholder="(62)" />
+                    <div class="form-group col-md-2">
+                        <label for="inputPassword4">Valor:</label>
+                        <input type="text" class="form-control" id="inputPassword4" placeholder="R$" />
                     </div>
-                    <div class="form-group col-md-6">
-                        <label for="inputEmail4">E-mail:</label>
-                        <input type="text" class="form-control" id="inputEmail4" placeholder="Digite o E-mail" />
-                    </div>
+
                     <div class="mb-3">
-                        <label for="exampleFormControlTextarea1" class="form-label">Observação:</label>
+                        <label for="exampleFormControlTextarea1" class="form-label">Descrição:</label>
                         <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                     </div>
                     <div class="form-check form-switch col-md-3">
@@ -48,15 +46,13 @@ function CadastroUsuario() {
                         <label class="form-check-label" for="flexSwitchCheckDefault">Ativo?</label>
                     </div>
                     <div class="d-grid gap-2 d-md-block">
-                        <button class="btn btn-primary" type="button">Button</button>
-                        <button class="btn btn-primary" type="button">Button</button>
+                        <button class="btn btn-primary" type="button">Cadastrar</button>
+                        <button class="btn btn-primary" type="button">Cancelar</button>
                     </div>
                 </div>
-
-
             </form>
         </div>
     )
 }
 
-export default CadastroUsuario;
+export default CadastroServico;

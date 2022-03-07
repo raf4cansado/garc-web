@@ -4,7 +4,7 @@ import { Routes, Route } from 'react-router-dom';
 import CadastroUsuario from './components/pages/usuario/cadastro-usuario';
 import CadastroCliente from './components/pages/cliente/cadastro-cliente';
 import CadastroProduto from "./components/pages/produto/cadastro-produto";
-import CadastroServico from "./components/pages/produto/cadastro-produto";
+import CadastroServico from "./components/pages/servico/cadastro-servico";
 
 function Rotas () {
 
