@@ -20,6 +20,10 @@ function CadastroServico() {
                         <label for="inputPassword4">Marca:</label>
                         <input type="text" class="form-control" id="inputPassword4" placeholder="Marca" />
                     </div>
+                    <div class="form-group col-md-5">
+                        <label for="inputPassword4">Marca:</label>
+                        <input type="text" class="form-control" id="inputPassword4" placeholder="Marca" />
+                    </div>
                     <div class="col-md-3">
                         <label for="validationCustom04" class="form-label">Tipo Produto</label>
                         <select class="form-select" id="validationCustom04" required>
