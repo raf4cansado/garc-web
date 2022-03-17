@@ -7,30 +7,31 @@ const db = mysql.createPool({
     host: "localhost",
     user: "root",
     password: "password",
-    database: "cadastro"
+    database: "dev-garc"
 })
 
 app.use(cors());
 app.use(express.json());
 
 app.post("/cadastro-usuario", (req,res) => {
+    const {usuario } = req.body
     const {nome } = req.body
-    const {descricao } = req.body
-    const {carga } = req.body
-    const {totaulas } = req.body
-    const {ano } = req.body
+    const {cpf } = req.body
+    const {telefone } = req.body
+    const {email } = req.body
+    const {ativo} = req.body
 
     let SQL = `
-    insert into cursos (nome, descricao, carga, totaulas, ano)
-    values (?, ?, ?, ?, ?)
+    insert into usuario (usuario , nome, cpf, telefone, email, ativo)
+    values (?, ?, ?, ?, ?, ?)
     `
-    db.query(SQL,[nome, descricao, carga, totaulas, ano], (err, result) => {
+    db.query(SQL,[usuario , nome, cpf, telefone, email, ativo], (err, result) => {
         console.log(err)
     })
 })
 
-app.get("/visualizacao-usuario", (req,res) =>{
-    let SQL = `SELECT * FROM cursos`
+app.get("/visualizacao-usuario", (req, res) =>{
+    let SQL = `SELECT * FROM usuario`
     db.query(SQL, (err, result) =>{
         if (err) console.log(err)
         else res.send(result)

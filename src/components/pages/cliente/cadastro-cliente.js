@@ -1,7 +1,5 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Axios from "axios";
-
 function CadastroCliente() {
     return (
         <div class="container p-5 mb-3 bg-light text-dark">
