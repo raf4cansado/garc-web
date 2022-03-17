@@ -8,7 +8,10 @@ function CadastroUsuario() {
     const [listUsuarios, setlistUsuarios] = useState();
 
     console.log(listUsuarios)
+    console.log(values)
+
     const handleChangeValues = (value) => {
+
         setValues((prevValue) => ({
             ...prevValue,
             [value.target.name]: value.target.value,
@@ -34,66 +37,48 @@ function CadastroUsuario() {
     }, [])
 
     return (
-        <div class="container p-5 mb-3 bg-light text-dark">
+        <div className="container p-5 mb-3 bg-light text-dark">
             <h2>Cadastro Usuário</h2>
             <form>
-                <div class="row">
-                    <div class="form-group col-md-3">
-                        <label for="inputEmail4">Usuário:</label>
-                        <input type="text" name="usuario" class="form-control" id="inputEmail4" placeholder="Usuário" onChange={handleChangeValues} />
+                <div className="row">
+                    <div className="form-group col-md-3">
+                        <label htmlFor="inputEmail4">Usuário:</label>
+                        <input type="text" name="usuario" className="form-control" id="inputEmail4" placeholder="Usuário" onChange={handleChangeValues} />
                     </div>
-                    <div class="form-group col-md-5">
-                        <label for="inputPassword4">Nome:</label>
-                        <input type="text" name="nome" class="form-control" id="inputPassword4" placeholder="Digite o Nome" onChange={handleChangeValues} />
+                    <div className="form-group col-md-5">
+                        <label htmlFor="inputPassword4">Nome:</label>
+                        <input type="text" name="nome" className="form-control" id="inputPassword4" placeholder="Digite o Nome" onChange={handleChangeValues} />
                     </div>
-                    <div class="col-md-3">
-                        <label for="validationCustom04" class="form-label">Tipo Usuário</label>
-                        <select class="form-select" id="validationCustom04" name="tipo_usuario" >
-                            <option selected disabled value="">Choose...</option>
+                    <div className="col-md-3">
+                        <label htmlFor="validationCustom04" className="form-label">Tipo Usuário</label>
+                        <select className="form-select" id="validationCustom04" name="tipo_usuario" >
                             <option>Administrador</option>
                             <option>Venda</option>
                         </select>
                     </div>
-                    <div class="form-group col-md-3">
-                        <label for="inputEmail4">CPF:</label>
-                        <input type="text" class="form-control" id="inputEmail4" placeholder="000.000.000-00" name="cpf" onChange={handleChangeValues} />
+                    <div className="form-group col-md-3">
+                        <label htmlFor="inputEmail4">CPF:</label>
+                        <input type="text" className="form-control" id="inputEmail4" placeholder="000.000.000-00" name="cpf" onChange={handleChangeValues} />
                     </div>
-                    <div class="form-group col-md-3">
-                        <label for="inputPassword4">Telefone:</label>
-                        <input type="text" class="form-control" id="inputPassword4" placeholder="(62)" name="telefone" onChange={handleChangeValues} />
+                    <div className="form-group col-md-3">
+                        <label htmlFor="inputPassword4">Telefone:</label>
+                        <input type="text" className="form-control" id="inputPassword4" placeholder="(62)" name="telefone" onChange={handleChangeValues} />
                     </div>
-                    <div class="form-group col-md-6">
-                        <label for="inputEmail4">E-mail:</label>
-                        <input type="text" class="form-control" id="inputEmail4" placeholder="Digite o E-mail" name="email" onChange={handleChangeValues} />
+                    <div className="form-group col-md-6">
+                        <label htmlFor="inputEmail4">E-mail:</label>
+                        <input type="text" className="form-control" id="inputEmail4" placeholder="Digite o E-mail" name="email" onChange={handleChangeValues} />
                     </div>
-                    <div class="form-check form-switch col-md-3">
-                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="ativo" />
-                        <label class="form-check-label" for="flexSwitchCheckDefault">Ativo?</label>
+                    <div className="form-check form-switch col-md-3">
+                        <input className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="ativo" />
+                        <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Ativo?</label>
                     </div>
-                    <div class="d-md-block">
-                        <button className="register-button" class="btn btn-primary" type="button" onClick={handleClickButoon}>Cadastrar</button>
+                    <div className="d-md-block">
+                        <button className="btn btn-primary mr-1" type="button" onClick={handleClickButoon}>Cadastrar</button>
 
-                        <button class="btn btn-primary" type="button">Cancelar</button>
+                        <button className="btn btn-primary ml-1" type="button">Cancelar</button>
                     </div>
                 </div>
-
-
             </form>
-            {typeof listUsuarios !== "undefined" &&
-                listUsuarios.map((value) => {
-                    return <VisualizacaoUsuario
-                        key={value.id}
-                        list={listUsuarios}
-                        setList={setlistUsuarios}
-                        id_usuario={value.id_usuario}
-                        usuario = {value.usuario}
-                        nome = {value.nome}
-                        cpf = {value.cpf} 
-                        telefone = { value.telefone}
-                        email = {value.email} 
-                        ativo = {value.ativo} 
-                />
-            })}
         </div>
     )
 }

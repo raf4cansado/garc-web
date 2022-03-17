@@ -1,12 +1,21 @@
-import React from "react";
-import CadastroUsuario from "./cadastro-usuario";
+import React, { useState, useEffect } from "react";
+import Axios from "axios";
 
-function VisualizacaoUsuario(props) {
+function VisualizacaoUsuario() {
+    const [listUsuarios, setlistUsuarios] = useState()
 
+    useEffect(() => {
+        Axios.get("http://localhost:3000/visualizacao-usuario").then((response) => {
+            setlistUsuarios(response.data);
+        })
+
+    }, [])
+
+    console.log(listUsuarios)
     return (
 
-        <div className="visualizacaoUsuario">
-            <table class="table">
+        <div className="container p-5 mb-3 bg-light text-dark ">
+            <table className="table">
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
@@ -19,16 +28,22 @@ function VisualizacaoUsuario(props) {
 
                     </tr>
                 </thead>
+
                 <tbody>
-                    <tr>
-                        <th scope="row">{props.id_usuario}</th>
-                        <td>{props.usuario}</td>
-                        <td>{props.nome}</td>
-                        <td>{props.cpf}</td>
-                        <td>{props.telefone}</td>
-                        <td>{props.email}</td>
-                        <td>{props.ativo}</td>
-                    </tr>
+                    {listUsuarios &&
+                        listUsuarios.map((item) => {
+                            return (
+                                <tr>
+                                    <th scope="row">{item.id_usuario}</th>
+                                    <td>{item.usuario}</td>
+                                    <td>{item.nome}</td>
+                                    <td>{item.cpf}</td>
+                                    <td>{item.telefone}</td>
+                                    <td>{item.email}</td>
+                                    <td>{item.ativo}</td>
+                                </tr>
+                            )
+                        })}
 
                 </tbody>
             </table>
