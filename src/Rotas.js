@@ -5,8 +5,6 @@ import CadastroUsuario from './components/pages/usuario/cadastro-usuario';
 import CadastroCliente from './components/pages/cliente/cadastro-cliente';
 import CadastroProduto from "./components/pages/produto/cadastro-produto";
 import CadastroServico from "./components/pages/servico/cadastro-servico";
-import FormDialog from "./components/pages/dialog/dialog";
-
 
 import VisualizacaoUsuario from "./components/pages/usuario/visualizacao-usuario";
 
@@ -22,7 +20,7 @@ function Rotas () {
 
             <Route exact path="/visualizacao-usuario" element= {<VisualizacaoUsuario/>}/>
 
-            <Route exact path="dialog" element={<FormDialog/>}/>
+            <Route exact path="/alterar-usuario/:id" element= {<CadastroUsuario/>}/>
         </Routes>
     );
 }

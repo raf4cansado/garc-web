@@ -1,15 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
-import FormDialog from "../dialog/dialog";
+import { Link } from "react-router-dom";
 
 function VisualizacaoUsuario() {
     const [listUsuarios, setlistUsuarios] = useState()
-    const [open, setOpen] = React.useState(false);
-
-
-    const handleClickEdit = () => {
-        setOpen(true);
-    }
 
     useEffect(() => {
         Axios.get("http://localhost:3000/visualizacao-usuario").then((response) => {
@@ -49,20 +43,9 @@ function VisualizacaoUsuario() {
                                     <td>{item.telefone}</td>
                                     <td>{item.email}</td>
                                     <td>{item.ativo}</td>
-                                    <td><button className="btn btn-dark" onClick={handleClickEdit}>Editar</button></td>
+                                    <td><Link className="btn btn-dark" to={"/alterar-usuario/" + item.id_usuario}>Editar</Link></td>
                                     <td><button className="btn btn-dark">Excluir</button></td>
 
-                                    <FormDialog
-                                        open={open}
-                                        setOpen={setOpen}
-                                        usuario={item.usuario}
-                                        nome={item.nome}
-                                        cpf={item.cpf}
-                                        telefone={item.telefone}
-                                        email={item.email}
-                                        listUsuarios={item.listUsuarios}
-                                        setlistUsuarios={item.setlistUsuarios}
-                                    />
                                 </tr>
                             )
                         })}
