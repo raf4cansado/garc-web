@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Axios from "axios";
-import VisualizacaoUsuario from '../usuario/visualizacao-usuario'
+import { Link } from "react-router-dom";
 function CadastroUsuario() {
 
     const [values, setValues] = useState();
@@ -72,11 +72,11 @@ function CadastroUsuario() {
                         <input className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="ativo" />
                         <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Ativo?</label>
                     </div>
-                    <div className="d-md-block">
-                        <button className="btn btn-primary mr-1" type="button" onClick={handleClickButoon}>Cadastrar</button>
-
-                        <button className="btn btn-primary ml-1" type="button">Cancelar</button>
+                    <div>
+                        <button className="btn btn-primary col-md-2 mr-2" type="button" onClick={handleClickButoon}>Cadastrar</button>
+                        <Link to="/visualizacao-usuario"><button className="btn btn-dark  col-md-2 ml-2" type="button">Visualizar</button></Link>
                     </div>
+
                 </div>
             </form>
         </div>
