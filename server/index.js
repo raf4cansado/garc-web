@@ -20,13 +20,16 @@ app.post("/cadastro-usuario", (req, res) => {
     const { telefone } = req.body
     const { email } = req.body
     const { ativo } = req.body
+    const {senha} = req.body
 
     let SQL = `
-    INSERT INTO usuario (usuario , nome, cpf, telefone, email, ativo)
-    values (?, ?, ?, ?, ?, ?)
+    INSERT INTO usuario (usuario, nome, cpf, telefone, email, ativo, senha)
+    values (?, ?, ?, ?, ?, ?, ?)
     `
-    db.query(SQL, [usuario, nome, cpf, telefone, email, ativo], (err, result) => {
-        console.log(err)
+    db.query(SQL, [usuario, nome, cpf, telefone, email, ativo, senha], (err, result) => {
+        if (err) console.log(err)
+        else res.send(result)
+        
     })
 })
 
@@ -50,21 +53,31 @@ app.get("/obter-usuario/:id", (req, res) =>{
     
 })
 
-app.put("/editar-usuario", (req, res) => {
+app.put("/alterar-usuario", (req, res) => {
     const obj = req.body    
-    console.log(obj,"aiaiiai")
     let SQL = `
-        UPDATE usuario SET usuario = ?, nome = ?, cpf = ?, telefone = ?, email = ?, ativo = ?
+        UPDATE usuario SET usuario = ?, nome = ?, cpf = ?, telefone = ?, email = ?, ativo = ?, senha = ?
         where id_usuario = ?
     `
-    db.query(SQL, [obj.usuario, obj.nome, obj.cpf, obj.telefone, obj.email, obj.ativo, obj.id], (err, result) => {
+    console.log("aqui", obj)
+    db.query(SQL, [obj.usuario, obj.nome, obj.cpf, obj.telefone, obj.email, obj.ativo,obj.senha, obj.id], (err, result) => {
         if (err) console.log(err)
         else res.send(result)
     })
 })
 
-
+app.delete("/deletar-usuario/:id", (req, res) =>{
+    const id = req.params.id
+    let SQL = `
+        DELETE FROM usuario WHERE id_usuario= ${id};
+    `
+    db.query(SQL, (err, result) =>{
+        if(err) console.log(err)
+        else res.send(result)
+    })
+    
+})
 
 app.listen(3000, () => {
-    console.log("rodando servidor")
+    console.log("up!")
 })

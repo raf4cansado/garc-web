@@ -8,7 +8,7 @@ function Header() {
             <nav>
             <ul className="nav justify-content-center">
                 <li className="nav-item">
-                    <Link to="/cadastro-usuario" className="nav-link active" >Usuário</Link>
+                    <Link to="/visualizacao-usuario" className="nav-link active" >Usuário</Link>
                 </li>
                 <li className="nav-item">
                     <Link to='/cadastro-cliente' className="nav-link active">Cliente</Link>

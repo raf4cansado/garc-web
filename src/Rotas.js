@@ -21,6 +21,7 @@ function Rotas () {
             <Route exact path="/visualizacao-usuario" element= {<VisualizacaoUsuario/>}/>
 
             <Route exact path="/alterar-usuario/:id" element= {<CadastroUsuario/>}/>
+            
         </Routes>
     );
 }

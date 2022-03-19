@@ -1,0 +1,27 @@
+.acao{
+    justify-content:center;
+    text-align: center;
+}
+
+.btnAcao{
+
+    margin-left: 12px;
+    margin-right: 12px;
+}
+
+.tdAcao{
+    justify-content: center;
+    display: flex;
+}
+
+.space-between{
+    justify-content: space-between;
+    display: flex;
+}
+
+.btnCadastrar {
+    justify-content: flex-end;
+    display: flex;
+    margin-top: 20px;
+}
+
