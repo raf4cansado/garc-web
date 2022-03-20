@@ -6,10 +6,6 @@ function CadastroCliente() {
             <h2>Cadastro Cliente</h2>
             <form>
                 <div className="row">
-                    <div className="form-group col-md-1">
-                        <label for="inputPassword4">Cod.Cliente</label>
-                        <input className="form-control" type="text" placeholder="COD " readonly />
-                    </div>
                     <div className="form-group col-md-8">
                         <label for="inputEmail4">Nome:</label>
                         <input type="text" className="form-control" id="inputEmail4" placeholder="Escreva aqui..." />
@@ -35,10 +31,6 @@ function CadastroCliente() {
                     </div>
                     <div className="form-group col-md-3">
                         <label for="inputPassword4">Contato:</label>
-                        <input type="text" className="form-control" id="inputPassword4" placeholder="(62)" />
-                    </div>
-                    <div className="form-group col-md-3">
-                        <label for="inputPassword4">Contato 2:</label>
                         <input type="text" className="form-control" id="inputPassword4" placeholder="(62)" />
                     </div>
                     <div className="form-group col-md-6">

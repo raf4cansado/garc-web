@@ -46,12 +46,12 @@ function CadastroUsuario() {
                 id: id,
                 ...data
             }).then((response) => {
-                navigate('/visualizacao-usuario')
+                navigate('/consulta-usuario')
             })
         } else {
             Axios.post("http://localhost:3000/cadastro-usuario", data).then((response) => {
                 console.log("asdas")
-                navigate('/visualizacao-usuario')
+                navigate('/consulta-usuario')
 
             })
         }
@@ -59,7 +59,7 @@ function CadastroUsuario() {
     }
 
     useEffect(() => {
-        Axios.get("http://localhost:3000/visualizacao-usuario").then((response) => {
+        Axios.get("http://localhost:3000/consulta-usuario").then((response) => {
             setlistUsuarios(response.data);
         })
     }, [])

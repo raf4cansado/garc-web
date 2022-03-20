@@ -16,4 +16,4 @@ app.listen(3000, () => {
 app.use(cors());
 app.use(express.json());
 
-export {db, app};
+export {db, app, mysql};

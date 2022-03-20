@@ -13,6 +13,7 @@ const db = mysql.createPool({
 app.use(cors());
 app.use(express.json());
 
+// ================================================================= CRUD USUARIO ===================================================================
 app.post("/cadastro-usuario", (req, res) => {
     const { usuario } = req.body
     const { nome } = req.body
@@ -33,7 +34,7 @@ app.post("/cadastro-usuario", (req, res) => {
     })
 })
 
-app.get("/visualizacao-usuario", (req, res) => {
+app.get("/consulta-usuario", (req, res) => {
     let SQL = `SELECT * FROM usuario`
     db.query(SQL, (err, result) => {
         if (err) console.log(err)
@@ -77,6 +78,8 @@ app.delete("/deletar-usuario/:id", (req, res) =>{
     })
     
 })
+
+// ================================================================= CRUD CLIENTE ===================================================================
 
 app.listen(3000, () => {
     console.log("up!")
