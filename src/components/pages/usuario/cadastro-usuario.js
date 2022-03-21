@@ -93,7 +93,7 @@ function CadastroUsuario() {
                     </div>
                     <div className="form-group col-md-6">
                         <label htmlFor="inputEmail4">E-mail:</label>
-                        <input type="text" className="form-control" id="email" placeholder="E-mail" {...register("email")} onChange={Obter} />
+                        <input type="text" className="form-control" id="email" placeholder="E-mail" {...register("email", {value:setValoresIniciais.email})} onChange={Obter} />
                     </div>
                     <div className="form-check form-switch col-md-3">
                         <input className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="ativo" />

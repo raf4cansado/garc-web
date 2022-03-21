@@ -1,52 +1,84 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useForm } from "react-hook-form";
+import Axios from "axios";
 
-function CadastroProduto() {
+function CadastroProduto(props) {
+
+    const [values, setValues] = useState();
+    const [listProdutos, setListProdutos] = useState();
+    const { register, handleSubmit, setValue } = useForm({});
+
+    useEffect(() => {
+
+    }, [])
+
+    const Obter = (value) => {
+        setValues((obj) => ({
+            ...obj,
+            [value.target.name]: value.target.value,
+
+        }))
+
+    }
+
+    console.log("Dados", values)
+
+    const Salvar = (obj) => {
+        Axios.post("http://localhost:3000/cadastro-produto", obj).then((response) => {
+            console.log("passei aqui")
+        })
+
+    }
+
+    useEffect(() => {
+        Axios.get("http://localhost:3000/consulta-produto").then((response) => {
+            setListProdutos(response.obj);
+        })
+    }, [])
+
     return (
         <div className="container p-5 mb-3 bg-light text-dark">
             <h2>Cadastro Produto</h2>
-            <form>
+            <form onSubmit={handleSubmit(Salvar)}>
                 <div className="row">
                     <div className="form-group col-md-3">
-                        <label for="inputEmail4">Produto:</label>
-                        <input type="text" className="form-control" name="prduto" id="produto" placeholder="Produto" />
+                        <label htmlFor="inputEmail4">Produto:</label>
+                        <input type="text" className="form-control" name="nome_produto" {...register('nome_produto')} id="nome_produto" placeholder="Produto" onChange={Obter} />
                     </div>
                     <div className="form-group col-md-5">
-                        <label for="inputPassword4">Marca:</label>
-                        <input type="text" className="form-control" name="marca"id="marca" placeholder="Marca" />
+                        <label htmlFor="inputPassword4">Marca:</label>
+                        <input type="text" className="form-control" name="marca" {...register('marca')} id="marca" placeholder="Marca" onChange={Obter} />
                     </div>
                     <div className="form-group col-md-2">
-                        <label for="inputPassword4">Quantidade:</label>
-                        <input type="number" className="form-control" name="quantidade" id="quantidade"/>
+                        <label htmlFor="inputPassword4">Quantidade:</label>
+                        <input type="number" className="form-control" name="quantidade" {...register('quantidade')} id="quantidade" onChange={Obter} />
                     </div>
-                    <div className="col-md-3">
-                        <label for="validationCustom04" className="form-label">Tipo Produto</label>
-                        <select className="form-select" id="validationCustom04" required>
+                    <div className="form-group col-md-3">
+                        <label htmlFor="validationCustom04" className="form-label">Tipo Produto</label>
+                        <select className="form-select" name="tipo_produto" id="tipo_produto" {...register('tipo_produto')} onChange={Obter}>
                             <option selected disabled value="">Choose...</option>
-                            <option>Administrador</option>
-                            <option>Venda</option>
+                            <option>Alimento</option>
+                            <option>Medicamento</option>
+                            <option>Brinquedo</option>
+                            <option>Serviço</option>
                         </select>
                     </div>
                     <div className="form-group col-md-3">
-                        <label for="inputEmail4">Cod. de Barras:</label>
-                        <input type="text" className="form-control" id="inputEmail4" placeholder="Cod. de Barras" />
+                        <label htmlFor="inputEmail4">Cod. de Barras:</label>
+                        <input type="text" className="form-control" name="codigo_barras" {...register('codigo_barras')} id="codigo_barras" placeholder="Cod. de Barras" onChange={Obter} />
                     </div>
                     <div className="form-group col-md-2">
-                        <label for="inputPassword4">Valor:</label>
-                        <input type="text" className="form-control" id="inputPassword4" placeholder="R$" />
+                        <label htmlFor="inputPassword4">Valor:</label>
+                        <input type="text" className="form-control" name="valor_produto" {...register('valor_produto')} id="valor_produto" placeholder="R$" onChange={Obter} />
                     </div>
 
                     <div className="mb-3">
-                        <label for="exampleFormControlTextarea1" className="form-label">Descrição:</label>
-                        <textarea className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                    </div>
-                    <div className="form-check form-switch col-md-3">
-                        <input className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" />
-                        <label className="form-check-label" for="flexSwitchCheckDefault">Ativo?</label>
+                        <label htmlFor="exampleFormControlTextarea1" className="form-label">Descrição:</label>
+                        <textarea className="form-control" id="descricao" name="descricao" rows="3" {...register('descricao')} onChange={Obter}></textarea>
                     </div>
                     <div className="d-grid gap-2 d-md-block">
-                        <button className="btn btn-primary" type="button">Cadastrar</button>
-                        <button className="btn btn-primary" type="button">Cancelar</button>
+                        <button className="btn btn-primary">Cadastrar</button>
                     </div>
                 </div>
             </form>
