@@ -15,6 +15,7 @@ function ConsultaUsuario() {
         Axios.get("http://localhost:3000/consulta-usuario").then((response) => {
             setlistUsuarios(response.data);
         })
+        
     }
     const Deletar = (id) => {
 
@@ -24,8 +25,6 @@ function ConsultaUsuario() {
         })
 
     }
-
-    console.log(listUsuarios)
     return (
 
         <div className="container p-5 mb-3 bg-light text-dark ">

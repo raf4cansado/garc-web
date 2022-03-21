@@ -2,6 +2,7 @@ const express = require("express")
 const app = express()
 const mysql = require("mysql")
 const cors = require("cors")
+const { result } = require("lodash")
 
 const db = mysql.createPool({
     host: "localhost",
@@ -60,7 +61,7 @@ app.put("/alterar-usuario", (req, res) => {
         UPDATE usuario SET usuario = ?, nome = ?, cpf = ?, telefone = ?, email = ?, ativo = ?, senha = ?
         where id_usuario = ?
     `
-    db.query(SQL, [obj.usuario, obj.nome, obj.cpf, obj.telefone, obj.email, obj.ativo, obj.senha, obj.id], (err, result) => {
+    db.query(SQL, [obj.usuario, obj.nome, obj.cpf, obj.telefone, obj.email, obj.ativo, obj.senha, obj.id_usuario], (err, result) => {
         if (err) console.log(err)
         else res.send(result)
     })
@@ -87,7 +88,7 @@ app.post("/cadastro-produto", (req, res) => {
         INSERT INTO produto (nome_produto, marca, tipo_produto, codigo_barras, quantidade, valor_produto, descricao)
         values (?,?,?,?,?,?,?)
     `
-    
+
     db.query(SQL, [nome_produto, marca, tipo_produto, codigo_barras, quantidade, valor_produto, descricao], (err, result) => {
         if (err) console.log(err)
         else res.send(result)
@@ -100,9 +101,43 @@ app.get("/consulta-produto", (req, res) => {
         if (err) console.log(err)
         else res.send(result)
     })
+
 })
 
+app.get("/obter-produto/:id", (req, res) => {
+    const id = req.params.id
+    let SQL = `SELECT * FROM produto WHERE id_produto = ${id}; `
+    db.query(SQL, (err, result) => {
+        if (err) console.log(err)
+        else res.send(result)
+    }) 
+})
 
+app.put('/alterar-produto', (req, res) => {
+    const obj = req.body
+    let SQL = `
+        UPDATE produto SET nome_produto = ?, marca =?, tipo_produto = ?, codigo_barras = ?, quantidade = ?, valor_produto = ?, descricao = ? 
+    where id_produto = ? `
+
+    db.query(SQL,[obj.nome_produto, obj.marca, obj.tipo_produto, obj.codigo_barras, obj.quantidade, obj.valor_produto, obj.descricao, obj.id_produto],
+        (err, result) =>{
+            if(err) console.log(err)
+            else res.send(result)
+        })
+
+
+})
+
+app.delete('/deletar-produto/:id', (req, res) =>{
+    const id = req.params.id
+    let SQL = `
+        DELETE FROM produto WHERE id_produto = ${id}
+    `
+    db.query(SQL, (err, result) =>{
+        if(err) console.log()
+        else res.send(result)
+    })
+})
 
 app.listen(3000, () => {
     console.log("up!")

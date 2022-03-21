@@ -9,12 +9,10 @@ import "../usuario/style.css"
 
 function CadastroUsuario() {
 
-    const [values, setValues] = useState();
-    const [listUsuarios, setlistUsuarios] = useState();
-    const [valoresIniciais, setValoresIniciais] = useState({});
     const { register, handleSubmit, setValue, formState: { errors } } = useForm({
         shouldUnregister: false
     });
+
 
     const navigate = useNavigate();
     const { id } = useParams();
@@ -23,22 +21,18 @@ function CadastroUsuario() {
         if (id) {
             Axios.get("http://localhost:3000/obter-usuario/" + id, { id: id }).then((response) => {
                 mapValues(response.data[0], (value, key) => setValue(key, value));
-
             })
-
-            console.log("aqui2", setValoresIniciais)
         }
 
     }, [id])
 
-    const Obter = (value) => {
+    // const Obter = (value) => {
 
-        setValues((prevValue) => ({
-            ...prevValue,
-            [value.target.name]: value.target.value,
-        }))
-    };
-
+    //     setValues((prevValue) => ({
+    //         ...prevValue,
+    //         [value.target.name]: value.target.value,
+    //     }))
+    // };
 
     const Salvar = (data) => {
         if (id) {
@@ -50,21 +44,12 @@ function CadastroUsuario() {
             })
         } else {
             Axios.post("http://localhost:3000/cadastro-usuario", data).then((response) => {
-                console.log("asdas")
                 navigate('/consulta-usuario')
 
             })
         }
 
     }
-
-    useEffect(() => {
-        Axios.get("http://localhost:3000/consulta-usuario").then((response) => {
-            setlistUsuarios(response.data);
-        })
-    }, [])
-
-
 
     return (
         <div className="container p-5 mb-3 bg-light text-dark">
@@ -73,27 +58,27 @@ function CadastroUsuario() {
                 <div className="row">
                     <div className="form-group col-md-6">
                         <label htmlFor="inputPassword4">Nome:</label>
-                        <input type="text" {...register("nome", { value: valoresIniciais.nome })} className="form-control" id="nome" placeholder="Nome" onChange={Obter} />
+                        <input type="text" {...register("nome")} className="form-control" id="nome" placeholder="Nome" />
                     </div>
                     <div className="form-group col-md-3">
                         <label htmlFor="inputEmail4">Usuário:</label>
-                        <input type="text" {...register("usuario", { required: true, minLength: 3, maxLength: 20 })} className="form-control" id="usuario" placeholder="Usuário" onChange={Obter} />
+                        <input type="text" {...register("usuario")} className="form-control" id="usuario" placeholder="Usuário" />
                     </div>
                     <div className="form-group col-md-3">
                         <label htmlFor="inputEmail4">Senha:</label>
-                        <input type="password" className="form-control" id="senha" placeholder="******"{...register("senha", { value: valoresIniciais.senha })} onChange={Obter} />
+                        <input type="password" className="form-control" id="senha" placeholder="******"{...register("senha")} />
                     </div>
                     <div className="form-group col-md-3">
                         <label htmlFor="inputEmail4">CPF:</label>
-                        <input type="text" className="form-control" id="cpf" placeholder="000.000.000-00" {...register("cpf", { value: valoresIniciais.cpf })} onChange={Obter} />
+                        <input type="text" className="form-control" id="cpf" placeholder="000.000.000-00" {...register("cpf")} />
                     </div>
                     <div className="form-group col-md-3">
                         <label htmlFor="inputPassword4">Telefone:</label>
-                        <input type="text" className="form-control" id="telefone" placeholder="Telefone" {...register("telefone", { value: valoresIniciais.telefone })} onChange={Obter} />
+                        <input type="text" className="form-control" id="telefone" placeholder="Telefone" {...register("telefone")} />
                     </div>
                     <div className="form-group col-md-6">
                         <label htmlFor="inputEmail4">E-mail:</label>
-                        <input type="text" className="form-control" id="email" placeholder="E-mail" {...register("email", {value:setValoresIniciais.email})} onChange={Obter} />
+                        <input type="text" className="form-control" id="email" placeholder="E-mail" {...register("email")} />
                     </div>
                     <div className="form-check form-switch col-md-3">
                         <input className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="ativo" />
