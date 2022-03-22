@@ -80,10 +80,6 @@ function CadastroUsuario() {
                         <label htmlFor="inputEmail4">E-mail:</label>
                         <input type="text" className="form-control" id="email" placeholder="E-mail" {...register("email")} />
                     </div>
-                    <div className="form-check form-switch col-md-3">
-                        <input className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="ativo" />
-                        <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Ativo?</label>
-                    </div>
                     <div className="btnCadastrar">
                         <button className="btn btn-primary col-md-2" >{id ? 'Alterar' : 'Cadastrar'}</button>
                     </div>

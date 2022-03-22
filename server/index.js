@@ -82,14 +82,15 @@ app.delete("/deletar-usuario/:id", (req, res) => {
 // ================================================================= CRUD Produto ===================================================================
 
 app.post("/cadastro-produto", (req, res) => {
-    const { nome_produto, marca, tipo_produto, codigo_barras, quantidade, valor_produto, descricao } = req.body
+    
+    const { nome_produto, marca, tipo_produto, codigo_barras,valor_produto, descricao } = req.body
 
     let SQL = `
-        INSERT INTO produto (nome_produto, marca, tipo_produto, codigo_barras, quantidade, valor_produto, descricao)
-        values (?,?,?,?,?,?,?)
+        INSERT INTO produto (nome_produto, marca, tipo_produto, codigo_barras, valor_produto, descricao)
+        values (?,?,?,?,?,?)
     `
 
-    db.query(SQL, [nome_produto, marca, tipo_produto, codigo_barras, quantidade, valor_produto, descricao], (err, result) => {
+    db.query(SQL, [nome_produto, marca, tipo_produto, codigo_barras, valor_produto, descricao], (err, result) => {
         if (err) console.log(err)
         else res.send(result)
     })
@@ -116,10 +117,10 @@ app.get("/obter-produto/:id", (req, res) => {
 app.put('/alterar-produto', (req, res) => {
     const obj = req.body
     let SQL = `
-        UPDATE produto SET nome_produto = ?, marca =?, tipo_produto = ?, codigo_barras = ?, quantidade = ?, valor_produto = ?, descricao = ? 
+        UPDATE produto SET nome_produto = ?, marca =?, tipo_produto = ?, codigo_barras = ? valor_produto = ?, descricao = ? 
     where id_produto = ? `
 
-    db.query(SQL,[obj.nome_produto, obj.marca, obj.tipo_produto, obj.codigo_barras, obj.quantidade, obj.valor_produto, obj.descricao, obj.id_produto],
+    db.query(SQL,[obj.nome_produto, obj.marca, obj.tipo_produto, obj.codigo_barras, obj.valor_produto, obj.descricao, obj.id_produto],
         (err, result) =>{
             if(err) console.log(err)
             else res.send(result)
@@ -142,3 +143,5 @@ app.delete('/deletar-produto/:id', (req, res) =>{
 app.listen(3000, () => {
     console.log("up!")
 })
+
+// ================================================================= CRUD Cliente Pet ===================================================================

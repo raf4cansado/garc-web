@@ -56,7 +56,7 @@ function ConsultaProduto() {
                                     <td>{item.marca}</td>
                                     <td>{item.tipo_produto}</td>
                                     <td>{item.codigo_barras}</td>
-                                    <td>{item.quantiadade}</td>
+                                    <td>{item.quantidade}</td>
                                     <td>{item.valor_produto}</td>
                                     <td>{item.descricao}</td>
                                     <td className="tdAcao">

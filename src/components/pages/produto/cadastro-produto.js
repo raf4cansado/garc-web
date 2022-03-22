@@ -55,10 +55,6 @@ function CadastroProduto() {
                         <label htmlFor="inputPassword4">Marca:</label>
                         <input type="text" className="form-control" name="marca" {...register('marca')} id="marca" placeholder="Marca" />
                     </div>
-                    <div className="form-group col-md-2">
-                        <label htmlFor="inputPassword4">Quantidade:</label>
-                        <input type="number" className="form-control" name="quantidade" {...register('quantidade')} id="quantidade" />
-                    </div>
                     <div className="form-group col-md-3">
                         <label htmlFor="validationCustom04" className="form-label">Tipo Produto</label>
                         <select className="form-select" name="tipo_produto" id="tipo_produto" {...register('tipo_produto')}>

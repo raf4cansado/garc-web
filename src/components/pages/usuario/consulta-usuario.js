@@ -41,7 +41,6 @@ function ConsultaUsuario() {
                         <th scope="col">CPF</th>
                         <th scope="col">Telefone</th>
                         <th scope="col">Email</th>
-                        <th scope="col">Ativo</th>
                         <th scope="col" className="acao">Ações</th>
 
                     </tr>
@@ -58,7 +57,6 @@ function ConsultaUsuario() {
                                     <td>{item.cpf}</td>
                                     <td>{item.telefone}</td>
                                     <td>{item.email}</td>
-                                    <td>{item.ativo}</td>
                                     <td className="tdAcao">
                                         <Link className="btn btn-dark btnAcao" to={"/alterar-usuario/" + item.id_usuario}>Editar</Link>
                                         <button className="btn btn-dark btnAcao " onClick={() => Deletar(item.id_usuario)}>Excluir</button>
