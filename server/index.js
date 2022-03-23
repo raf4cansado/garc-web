@@ -135,7 +135,7 @@ app.delete('/deletar-produto/:id', (req, res) =>{
         DELETE FROM produto WHERE id_produto = ${id}
     `
     db.query(SQL, (err, result) =>{
-        if(err) console.log()
+        if(err) console.log(err)
         else res.send(result)
     })
 })
@@ -145,3 +145,15 @@ app.listen(3000, () => {
 })
 
 // ================================================================= CRUD Cliente Pet ===================================================================
+app.post('/cadastro-cliente', (req, res) =>{
+    const {nome, cpf, endereco, complemento, telefone, email} = req.body
+
+    let SQL = `
+    INSERT INTO cliente (nome, cpf, endereco, complemento, telefone, email, data_registro) 
+    values (?, ?, ?, ?, ?, ?, now()) 
+    `
+    db.query(SQL, [nome, cpf, endereco, complemento, telefone, email], (err, result) =>{
+        if(err) console.log(err)
+        else res.send(result)
+    } )
+})

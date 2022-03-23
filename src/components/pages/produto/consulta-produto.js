@@ -62,6 +62,7 @@ function ConsultaProduto() {
                                     <td className="tdAcao">
                                         <Link className="btn btn-dark btnAcao" to={"/alterar-produto/" + item.id_produto}>Editar</Link>
                                         <button className="btn btn-dark btnAcao " onClick={()=> Deletar(item.id_produto)}>Excluir</button>
+                                        <button className="btn btn-dark btnAcao ">Entrada</button>
                                     </td>
 
                                 </tr>
