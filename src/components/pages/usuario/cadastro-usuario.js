@@ -13,7 +13,6 @@ function CadastroUsuario() {
         shouldUnregister: false
     });
 
-
     const navigate = useNavigate();
     const { id } = useParams();
 
@@ -23,7 +22,6 @@ function CadastroUsuario() {
                 mapValues(response.data[0], (value, key) => setValue(key, value));
             })
         }
-
     }, [id])
 
     // const Obter = (value) => {
@@ -48,7 +46,6 @@ function CadastroUsuario() {
 
             })
         }
-
     }
 
     return (

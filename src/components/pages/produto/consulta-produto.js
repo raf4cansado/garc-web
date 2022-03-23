@@ -1,6 +1,7 @@
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import modalEntrada from "./modal-entrada";
 
 function ConsultaProduto() {
     const [listProdutos, setListProdutos] = useState();
@@ -62,6 +63,8 @@ function ConsultaProduto() {
                                     <td className="tdAcao">
                                         <Link className="btn btn-dark btnAcao" to={"/alterar-produto/" + item.id_produto}>Editar</Link>
                                         <button className="btn btn-dark btnAcao " onClick={()=> Deletar(item.id_produto)}>Excluir</button>
+                                        <Link  to={"/modal-entrada"}><button className="btn btn-dark btnAcao " >Entrada</button></Link>
+
                                     </td>
 
                                 </tr>
