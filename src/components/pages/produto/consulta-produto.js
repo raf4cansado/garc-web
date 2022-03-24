@@ -50,7 +50,7 @@ function ConsultaProduto() {
                     {listProdutos &&
                         listProdutos.map((item) => {
                             return (
-                                <tr>
+                                <tr key={item.id_produto}>
                                     <th scope="row">{item.id_produto}</th>
                                     <td>{item.nome_produto}</td>
                                     <td>{item.marca}</td>

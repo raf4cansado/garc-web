@@ -11,7 +11,7 @@ function Header() {
                     <Link to="/consulta-usuario" className="nav-link active" >Usuário</Link>
                 </li>
                 <li className="nav-item">
-                    <Link to='/cadastro-cliente' className="nav-link active">Cliente</Link>
+                    <Link to='/consulta-cliente' className="nav-link active">Cliente</Link>
                 </li>
                 <li className="nav-item">
                     <Link to='/consulta-produto' className="nav-link active">Produto</Link>

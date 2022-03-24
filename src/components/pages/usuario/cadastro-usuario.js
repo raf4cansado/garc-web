@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Axios from "axios";
 import { Link, useParams, useNavigate } from "react-router-dom";
-
 import mapValues from "lodash/mapValues";
-import "../usuario/style.css"
+import Axios from "axios";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import "../style.css"
 
 function CadastroUsuario() {
 
