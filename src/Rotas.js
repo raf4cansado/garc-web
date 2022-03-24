@@ -8,8 +8,8 @@ import CadastroServico from "./components/pages/servico/cadastro-servico";
 
 import ConsultaUsuario from "./components/pages/usuario/consulta-usuario";
 import ConsultaProduto from "./components/pages/produto/consulta-produto";
-import ModalEntrada from "./components/pages/produto/modal-entrada";
 
+import ConsultaCliente from "./components/pages/cliente/consulta-cliente";
 function Rotas () {
 
    return (
@@ -22,11 +22,13 @@ function Rotas () {
 
             <Route exact path="/consulta-usuario" element= {<ConsultaUsuario/>}/>
             <Route exact path="/consulta-produto" element= {<ConsultaProduto/>}/>
+            <Route exatc path="/consulta-cliente" element= {<ConsultaCliente/>}/>
 
             <Route exact path="/modal-entrada" element={<ModalEntrada/>}/>
 
             <Route exact path="/alterar-usuario/:id" element= {<CadastroUsuario/>}/>
             <Route exact path="/alterar-produto/:id" element= {<CadastroProduto/>}/>  {/* :id indica que id é uma parâmetro */}
+            <Route exact path="/alterar-cliente/:id" element= {<CadastroCliente/>}/>
             
             
         </Routes>

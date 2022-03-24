@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import { Link } from "react-router-dom";
-
-import "../usuario/style.css"
+import "../style.css"
 
 function ConsultaUsuario() {
     const [listUsuarios, setlistUsuarios] = useState()
@@ -50,7 +49,7 @@ function ConsultaUsuario() {
                     {listUsuarios &&
                         listUsuarios.map((item) => {
                             return (
-                                <tr>
+                                <tr key ={item.id_usuario}>
                                     <th scope="row">{item.id_usuario}</th>
                                     <td>{item.usuario}</td>
                                     <td>{item.nome}</td>

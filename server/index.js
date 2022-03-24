@@ -3,6 +3,7 @@ const app = express()
 const mysql = require("mysql")
 const cors = require("cors")
 const { result } = require("lodash")
+const { AppBar } = require("@material-ui/core")
 
 const db = mysql.createPool({
     host: "localhost",
@@ -117,8 +118,9 @@ app.get("/obter-produto/:id", (req, res) => {
 app.put('/alterar-produto', (req, res) => {
     const obj = req.body
     let SQL = `
-        UPDATE produto SET nome_produto = ?, marca =?, tipo_produto = ?, codigo_barras = ? valor_produto = ?, descricao = ? 
-    where id_produto = ? `
+        UPDATE produto SET nome_produto = ?, marca =?, tipo_produto = ?, codigo_barras = ?, valor_produto = ?, descricao = ? 
+            where id_produto = ? 
+    `
 
     db.query(SQL,[obj.nome_produto, obj.marca, obj.tipo_produto, obj.codigo_barras, obj.valor_produto, obj.descricao, obj.id_produto],
         (err, result) =>{
@@ -135,7 +137,7 @@ app.delete('/deletar-produto/:id', (req, res) =>{
         DELETE FROM produto WHERE id_produto = ${id}
     `
     db.query(SQL, (err, result) =>{
-        if(err) console.log()
+        if(err) console.log(err)
         else res.send(result)
     })
 })
@@ -145,3 +147,63 @@ app.listen(3000, () => {
 })
 
 // ================================================================= CRUD Cliente Pet ===================================================================
+app.post('/cadastro-cliente', (req, res) =>{
+    console.log("req", req)
+    const {nome, cpf, data_nascimento, endereco, complemento, telefone, email} = req.body
+
+    let SQL = `
+    INSERT INTO cliente (nome, cpf, data_nascimento, endereco, complemento, telefone, email, data_registro) 
+    values (?, ?, ?, ?, ?, ?, ?, now()) 
+    `
+    db.query(SQL, [nome, cpf, data_nascimento, endereco, complemento, telefone, email], (err, result) =>{
+        if(err) console.log(err)
+        else res.send(result)
+    } )
+})
+
+app.get("/consulta-cliente", (req, res) =>{
+    let SQL = `
+            SELECT * FROM cliente;
+    `
+    db.query(SQL, (err, result) =>{
+        if(err) console.log(err)
+        else res.send(result)
+    })
+})
+
+app.get("/obter-cliente/:id", (req, res) =>{
+    let id = req.params.id
+    let SQL = `
+    SELECT * FROM cliente WHERE  id_cliente = ${id}; 
+    `
+    db.query(SQL,(err, result) =>{
+        if(err) console.log(err)
+        else res.send(result)
+    })
+})
+
+app.put("/alterar-cliente", (req, res) =>{
+    const obj = req.body
+    let SQL = `
+     UPDATE cliente SET  nome = ?, cpf = ?, data_nascimento = ?, endereco = ?, complemento = ?, telefone = ?, email = ? 
+     WHERE id_cliente = ?
+    `
+
+    db.query(SQL,[obj.nome, obj.cpf, obj.data_nascimento, obj.endereco, obj.complemento, obj.telefone, obj.email, obj.id_cliente], (err, result) =>{
+        if(err) console.log(err)
+        else res.send(result)
+    })
+})
+
+app.delete("/deletar-cliente/:id", (req, res) =>{
+    const id = req.params.id
+
+    let SQL  =`
+    DELETE FROM cliente WHERE id_cliente = ${id}
+    `
+
+    db.query(SQL, (err, result) =>{
+        if(err) console.log(err)
+        else res.send(result)
+    })
+})

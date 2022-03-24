@@ -58,7 +58,7 @@ function CadastroProduto() {
                     <div className="form-group col-md-3">
                         <label htmlFor="validationCustom04" className="form-label">Tipo Produto</label>
                         <select className="form-select" name="tipo_produto" id="tipo_produto" {...register('tipo_produto')}>
-                            <option selected disabled value="">Choose...</option>
+                            <option defaultValue>Tipo Produto...</option>
                             <option>Alimento</option>
                             <option>Medicamento</option>
                             <option>Brinquedo</option>

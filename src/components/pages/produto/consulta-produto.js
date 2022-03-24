@@ -51,7 +51,7 @@ function ConsultaProduto() {
                     {listProdutos &&
                         listProdutos.map((item) => {
                             return (
-                                <tr>
+                                <tr key={item.id_produto}>
                                     <th scope="row">{item.id_produto}</th>
                                     <td>{item.nome_produto}</td>
                                     <td>{item.marca}</td>
@@ -63,8 +63,6 @@ function ConsultaProduto() {
                                     <td className="tdAcao">
                                         <Link className="btn btn-dark btnAcao" to={"/alterar-produto/" + item.id_produto}>Editar</Link>
                                         <button className="btn btn-dark btnAcao " onClick={()=> Deletar(item.id_produto)}>Excluir</button>
-                                        <Link  to={"/modal-entrada"}><button className="btn btn-dark btnAcao " >Entrada</button></Link>
-
                                     </td>
 
                                 </tr>
