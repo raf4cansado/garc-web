@@ -8,7 +8,7 @@ const { AppBar } = require("@material-ui/core")
 const db = mysql.createPool({
     host: "localhost",
     user: "root",
-    password: "password",
+    password: "",
     database: "dev-garc"
 })
 
@@ -206,4 +206,40 @@ app.delete("/deletar-cliente/:id", (req, res) =>{
         if(err) console.log(err)
         else res.send(result)
     })
+})
+
+// ================================================================= CRUD Vendas ===================================================================
+app.post("/cadastro-venda", (req, res) => {
+    console.log("req", req)
+    const {id_cliente, cpf_cliente_final, id_usuario, id_produto, valor, quantidade, descricao} = req.body
+
+    let SQL = `
+    INSERT INTO venda (cpf_cliente_final, valor, quantidade, descricao, id_produto, id_cliente, id_usuario, data_venda)
+    values (?, ?, ?, ?, ?, ?, ?, sysdate())
+    `
+    db.query(SQL, [cpf_cliente_final, valor, quantidade, descricao, id_produto, id_cliente, id_usuario], (err, result) => {
+        if (err) console.log(err)
+        else res.send(result)
+
+    })
+})
+
+app.get("/consulta-venda", (req, res) => {
+    let SQL = `SELECT * FROM venda`
+    db.query(SQL, (err, result) => {
+        if (err) console.log(err)
+        else res.send(result)
+    })
+})
+
+app.get("/obter-venda/:id", (req, res) => {
+    const id = req.params.id
+    let SQL = `
+        SELECT * FROM venda WHERE id_venda = ${id};
+    `
+    db.query(SQL, (err, result) => {
+        if (err) console.log(err)
+        else res.send(result)
+    })
+
 })
