@@ -28,7 +28,7 @@ function ConsultaProduto() {
     return (
         <div className="container p-5 mb-3 bg-light text-dark ">
             <div className="space-between">
-                <div><h2>Produtos</h2></div>
+                <div><h2>Lista de Produtos</h2></div>
                 <div><Link className="btn btn-primary" to={"/cadastro-produto/"}>Novo</Link></div>
             </div>
             <table className="table">

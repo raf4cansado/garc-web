@@ -4,7 +4,7 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import mapValues from "lodash/mapValues";
 import Axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import "../style.css"
+import "../../pages/style.css"
 
 function CadastroUsuario() {
 
@@ -77,7 +77,7 @@ function CadastroUsuario() {
                         <input type="text" className="form-control" id="email" placeholder="E-mail" {...register("email")} />
                     </div>
                     <div className="btnCadastrar">
-                        <button className="btn btn-primary col-md-2" >{id ? 'Alterar' : 'Cadastrar'}</button>
+                        <button className="btn btn-primary " >{id ? 'Alterar' : 'Cadastrar'}</button>
                     </div>
 
                 </div>

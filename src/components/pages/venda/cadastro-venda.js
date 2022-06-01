@@ -7,10 +7,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "../style.css"
 
 
+function CadastroServico() {
 
-
- function CadastroServico() {
-     
 
     const { register, handleSubmit, setValue, formState: { errors } } = useForm({
         shouldUnregister: false
@@ -55,7 +53,7 @@ import "../style.css"
 
             })
         }
-    
+
     }
 
     const { idd } = useParams();
@@ -68,7 +66,7 @@ import "../style.css"
         }
 
     }, [idd])
-     
+
     const Salvarr = (data) => {
         if (idd) {
             Axios.put("http://localhost:3000/alterar-venda", {
@@ -83,84 +81,57 @@ import "../style.css"
                 alert("Produto Adicionado!")
 
 
-                 })
-             }
+            })
+        }
 
-           }
-
-   
-
-         
+    }
 
 
     return (
         <div className="container p-5 mb-3 bg-light text-dark">
-            <h2>{id ? 'Alterar Venda' : 'Cabeçalho Venda'}</h2>
+            <h2>{'Dados do Cliente'}</h2>
             <form onSubmit={handleSubmit(Salvar)}>
                 <div className="row">
-                    <div className="form-group col-md-1">
-                        <label htmlFor="inputEmail4">Cod.</label>
-                        <input className="form-control" type="text" {...register("id")} id="id" readonly />
+                    <div className="form-group col-md-9">
+                        <label htmlFor="nome">Nome / Razão Social:</label>
+                        <input type="text" className="form-control" {...register("nome")} name="nome" id="nome" placeholder="Nome / Razão Social" />
                     </div>
                     <div className="form-group col-md-3">
-                        <label htmlFor="inputEmail4">Cliente:</label>
-                        <input type="text" className="form-control" id="id_cliente" placeholder="Digite aqui.." {...register("id_cliente")} />
+                        <label htmlFor="cpf">CPF / CNPJ:</label>
+                        <input type="text" className="form-control"{...register("cpf")} name="cpf" id="cpf" placeholder="CPF / CNPJ" />
+                    </div>
+                    <div className="form-group col-md-3">
+                        <label htmlFor="data_nascimento">Data de Nascimento</label>
+                        <input type="text" className="form-control"{...register("data_nascimento")} name="data_nascimento" id="data_nascimento" placeholder="DD/MM/YYYY" />
+                    </div>
+                    <div className="form-group col-md-6">
+                        <label htmlFor="email">Email:</label>
+                        <input type="email" className="form-control"{...register("email")} name="email" id="email" placeholder="Email" />
+                    </div>
+                    <div className="form-group col-md-3">
+                        <label htmlFor="telefone">Telefone:</label>
+                        <input type="text" className="form-control" {...register("telefone")} name="telefone" id="telefone" placeholder="Telefone" />
+                    </div>
+
+                    <div className="form-group col-md-7">
+                        <label htmlFor="endereco">Endereço:</label>
+                        <input type="text" className="form-control" {...register("endereco")} name="endereco" id="endereco" placeholder="Endereço" />
                     </div>
                     <div className="form-group col-md-5">
-                        <label htmlFor="inputEmail4">Cliente Final:</label>
-                        <input type="text" className="form-control" id="nome_cliente_final" placeholder="Digite aqui.." {...register("nome_cliente_final")}/>
-                    </div>
-                    <div className="form-group col-md-3">
-                        <label htmlFor="inputEmail4">Vendedor:</label>
-                        <input type="text"  className="form-control" id="id_usuario" placeholder="Digite aqui.." {...register("id_usuario")} />
-                    </div>
-                       <div className="mb-3">
-                            <label htmlFor="inputEmail4">Descrição:</label>
-                            <textarea className="form-control" id="descri" {...register("descri")} rows="3"></textarea>
-                        </div>
-                    <div className="btnCadastrar">
-                        <button className="btn btn-primary col-md-2" >{id ? 'Alterar' : 'Abrir Pedido'}</button>
+                        <label htmlFor="complemento">Complemento:</label>
+                        <input type="text" className="form-control" {...register("complemento")} name="complemento" id="complemento" placeholder="Complemento" />
                     </div>
                 </div>
             </form>
 
-            <h3>{idd ? 'Alterar Venda' : 'Selecionar Produtos'}</h3>
-            <section>
-            <form  onSubmit={handleSubmit(Salvarr)}>
-                <div className="row">
-                    <div className="form-group col-md-1">
-                        <label for="nome">Cod.</label>
-                        <input className="form-control" type="text" {...register("id")}  id="id" readonly />
-                    </div>
-                    <div className="form-group col-md-3">
-                        <label for="nome">Produto:</label>
-                        <input type="text" className="form-control"  id="id_produto"  placeholder="Digite aqui.." {...register("id_produto")} />
-                    </div>
-                    <div className="form-group col-md-3">
-                        <label for="nome">Quantidade:</label>
-                        <input type="text"  className="form-control"  id="quantidade"  placeholder="Digite aqui.." {...register("quantidade")}/>
-                    </div>
-                    <div className="form-group col-md-3">
-                        <label for="nome">Valor:</label>
-                        <input type="text"  className="form-control"  id="valor"  placeholder="Digite aqui.." {...register("valor")} />
-                    </div>
-                    <div className="btnCadastrar">
-                        <button className="btn btn-primary col-md-2" >{idd ? 'Alterar' : 'Adicionar Produto'}</button>
-                    </div>
-   
-                    </div>
-            </form>
-            </section>
+            <h2>{'Produtos'}</h2>
+            <h1>FIELDARRAY AQUI</h1>
         </div>
 
-        
-
     )
-    }
-    
-   
-    
+}
 
-    export default  CadastroServico;
+
+export default CadastroServico;
 
 

@@ -56,10 +56,10 @@ function CadastroProduto() {
                         <label htmlFor="inputPassword4">Marca:</label>
                         <input type="text" className="form-control" name="marca" {...register('marca')} id="marca" placeholder="Marca" />
                     </div>
-                    <div className="form-group col-md-3">
-                        <label htmlFor="validationCustom04" className="form-label">Tipo Produto</label>
-                        <select className="form-select" name="tipo_produto" id="tipo_produto" {...register('tipo_produto')}>
-                            <option defaultValue>Tipo Produto...</option>
+                    <div className="form-group col-md-4">
+                        <label htmlFor="validationCustom04" className="form-label">Tipo Produto</label> 
+                        <select className="form-control" name="tipo_produto" id="tipo_produto" {...register('tipo_produto')}>
+                            <option defaultValue>Tipo Produto</option>
                             <option>Alimento</option>
                             <option>Medicamento</option>
                             <option>Brinquedo</option>
@@ -75,12 +75,12 @@ function CadastroProduto() {
                         <input type="text" className="form-control" name="valor_produto" {...register('valor_produto')} id="valor_produto" placeholder="R$" />
                     </div>
 
-                    <div className="mb-3">
+                    <div className="form-group col-md-12">
                         <label htmlFor="exampleFormControlTextarea1" className="form-label">Descrição:</label>
                         <textarea className="form-control" id="descricao" name="descricao" rows="3" {...register('descricao')}></textarea>
                     </div>
-                    <div className="d-grid gap-2 d-md-block">
-                        <button className="btn btn-primary">{id ? "Alterar" : "Cadastrar"}</button>
+                    <div className="btnCadastrar">
+                        <button className="btn btn-primary" >{id ? "Alterar" : "Cadastrar"}</button>
                     </div>
                 </div>
             </form>

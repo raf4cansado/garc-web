@@ -5,13 +5,12 @@ import mapValues from "lodash/mapValues";
 import Axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../style.css"
-import RegraVenda from "./regravenda";
 
 
 
 
- function EntradaProduto() {
-     
+function EntradaProduto() {
+
 
     const { register, handleSubmit, setValue, formState: { errors } } = useForm({
         shouldUnregister: false
@@ -56,7 +55,7 @@ import RegraVenda from "./regravenda";
 
             })
         }
-    
+
     }
 
     const { idd } = useParams();
@@ -69,7 +68,7 @@ import RegraVenda from "./regravenda";
         }
 
     }, [idd])
-     
+
     const Salvarr = (data) => {
         if (idd) {
             Axios.put("http://localhost:3000/alterar-venda", {
@@ -84,48 +83,48 @@ import RegraVenda from "./regravenda";
                 alert("Produto Adicionado!")
 
 
-                 })
-             }
+            })
+        }
 
-           }
+    }
 
 
     return (
         <div className="container p-5 mb-3 bg-light text-dark">
-            <h2>{id ? 'Alterar Venda' : 'Cabeçalho Venda'}</h2>
+            <h2>{'Entrada Produto'}</h2>
             <form onSubmit={handleSubmit(Salvar)}>
                 <div className="row">
                     <div className="form-group col-md-1">
                         <label htmlFor="inputEmail4">Cod.</label>
-                        <input className="form-control" type="text" {...register("id")} id="id"/>
+                        <input className="form-control" type="text" {...register("id")} id="id" />
                     </div>
-                    <div className="form-group col-md-8">
+                    <div className="form-group col-md-4">
                         <label htmlFor="inputEmail4">Produto:</label>
-                        <input type="text" className="form-control" id="id_produto" placeholder="Digite aqui.." {...register("id_produto")}/>
+                        <input type="text" className="form-control" id="id_produto" placeholder="Produto" {...register("id_produto")} />
+                    </div>
+                    <div className="form-group col-md-4">
+                        <label htmlFor="inputPassword4">Marca:</label>
+                        <input type="text" className="form-control" name="marca" {...register('marca')} id="marca" placeholder="Marca" />
                     </div>
                     <div className="form-group col-md-3">
                         <label htmlFor="inputEmail4">Quantidade:</label>
-                        <input type="text"  className="form-control" id="quantidade" placeholder="Digite aqui.." {...register("quantidade")} />
+                        <input type="text" className="form-control" id="quantidade" placeholder="Quantidade" {...register("quantidade")} />
                     </div>
-                       <div className="mb-3">
-                            <label htmlFor="inputEmail4">Descrição:</label>
-                            <textarea className="form-control" id="descricao" {...register("descricao")} rows="3"></textarea>
-                        </div>
-                        <div className="btnCadastrar">
-                        <button className="btn btn-primary col-md-2" >{id ? 'Alterar' : 'Abrir Pedido'}</button>
+                    <div className="btnCadastrar">
+                        <button className="btn btn-primary" >{'Confirmar'}</button>
                     </div>
                 </div>
             </form>
         </div>
 
-        
+
 
     )
-    }
-    
-   
-    
+}
 
-    export default  EntradaProduto;
+
+
+
+export default EntradaProduto;
 
 
