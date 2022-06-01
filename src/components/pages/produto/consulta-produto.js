@@ -39,8 +39,6 @@ function ConsultaProduto() {
                         <th scope="col">Marca</th>
                         <th scope="col">Tipo Produto</th>
                         <th scope="col">Cod. de Barras</th>
-                        <th scope="col">Quantidade</th>
-                        <th scope="col">Valor R$</th>
                         <th scope="col">Descrição</th>
                         <th scope="col" className="acao">Ações</th>
 
@@ -57,8 +55,6 @@ function ConsultaProduto() {
                                     <td>{item.marca}</td>
                                     <td>{item.tipo_produto}</td>
                                     <td>{item.codigo_barras}</td>
-                                    <td>{item.quantidade}</td>
-                                    <td>{item.valor_produto}</td>
                                     <td>{item.descricao}</td>
                                     <td className="tdAcao">
                                         <Link className="btn btn-dark btnAcao" to={"/alterar-produto/" + item.id_produto}>Editar</Link>
