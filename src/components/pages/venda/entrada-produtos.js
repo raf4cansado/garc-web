@@ -5,11 +5,12 @@ import mapValues from "lodash/mapValues";
 import Axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../style.css"
+import RegraVenda from "./regravenda";
 
 
 
 
- function CadastroServico() {
+ function EntradaProduto() {
      
 
     const { register, handleSubmit, setValue, formState: { errors } } = useForm({
@@ -48,9 +49,9 @@ import "../style.css"
                 navigate('/consulta-venda')
             })
         } else {
-            Axios.post("http://localhost:3000/cadastro-venda", data).then((response) => {
-                navigate('/cadastro-venda')
-                alert("Pedido Feito!")
+            Axios.post("http://localhost:3000/entrada-produtos", data).then((response) => {
+                navigate('/entrada-produtos')
+                alert("Produto lançado!!")
 
 
             })
@@ -88,10 +89,6 @@ import "../style.css"
 
            }
 
-   
-
-         
-
 
     return (
         <div className="container p-5 mb-3 bg-light text-dark">
@@ -100,57 +97,25 @@ import "../style.css"
                 <div className="row">
                     <div className="form-group col-md-1">
                         <label htmlFor="inputEmail4">Cod.</label>
-                        <input className="form-control" type="text" {...register("id")} id="id" readonly />
+                        <input className="form-control" type="text" {...register("id")} id="id"/>
+                    </div>
+                    <div className="form-group col-md-8">
+                        <label htmlFor="inputEmail4">Produto:</label>
+                        <input type="text" className="form-control" id="id_produto" placeholder="Digite aqui.." {...register("id_produto")}/>
                     </div>
                     <div className="form-group col-md-3">
-                        <label htmlFor="inputEmail4">Cliente:</label>
-                        <input type="text" className="form-control" id="id_cliente" placeholder="Digite aqui.." {...register("id_cliente")} />
-                    </div>
-                    <div className="form-group col-md-5">
-                        <label htmlFor="inputEmail4">Cliente Final:</label>
-                        <input type="text" className="form-control" id="nome_cliente_final" placeholder="Digite aqui.." {...register("nome_cliente_final")}/>
-                    </div>
-                    <div className="form-group col-md-3">
-                        <label htmlFor="inputEmail4">Vendedor:</label>
-                        <input type="text"  className="form-control" id="id_usuario" placeholder="Digite aqui.." {...register("id_usuario")} />
+                        <label htmlFor="inputEmail4">Quantidade:</label>
+                        <input type="text"  className="form-control" id="quantidade" placeholder="Digite aqui.." {...register("quantidade")} />
                     </div>
                        <div className="mb-3">
                             <label htmlFor="inputEmail4">Descrição:</label>
-                            <textarea className="form-control" id="descri" {...register("descri")} rows="3"></textarea>
+                            <textarea className="form-control" id="descricao" {...register("descricao")} rows="3"></textarea>
                         </div>
-                    <div className="btnCadastrar">
+                        <div className="btnCadastrar">
                         <button className="btn btn-primary col-md-2" >{id ? 'Alterar' : 'Abrir Pedido'}</button>
                     </div>
                 </div>
             </form>
-
-            <h3>{idd ? 'Alterar Venda' : 'Selecionar Produtos'}</h3>
-            <section>
-            <form  onSubmit={handleSubmit(Salvarr)}>
-                <div className="row">
-                    <div className="form-group col-md-1">
-                        <label for="nome">Cod.</label>
-                        <input className="form-control" type="text" {...register("id")}  id="id" readonly />
-                    </div>
-                    <div className="form-group col-md-3">
-                        <label for="nome">Produto:</label>
-                        <input type="text" className="form-control"  id="id_produto"  placeholder="Digite aqui.." {...register("id_produto")} />
-                    </div>
-                    <div className="form-group col-md-3">
-                        <label for="nome">Quantidade:</label>
-                        <input type="text"  className="form-control"  id="quantidade"  placeholder="Digite aqui.." {...register("quantidade")}/>
-                    </div>
-                    <div className="form-group col-md-3">
-                        <label for="nome">Valor:</label>
-                        <input type="text"  className="form-control"  id="valor"  placeholder="Digite aqui.." {...register("valor")} />
-                    </div>
-                    <div className="btnCadastrar">
-                        <button className="btn btn-primary col-md-2" >{idd ? 'Alterar' : 'Adicionar Produto'}</button>
-                    </div>
-   
-                    </div>
-            </form>
-            </section>
         </div>
 
         
@@ -161,6 +126,6 @@ import "../style.css"
    
     
 
-    export default  CadastroServico;
+    export default  EntradaProduto;
 
 

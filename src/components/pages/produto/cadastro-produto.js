@@ -44,7 +44,8 @@ function CadastroProduto() {
 
     return (
         <div className="container p-5 mb-3 bg-light text-dark">
-            <h2>{id ? "Alterar Produto" : "Cadastro Produto"}</h2>
+        <h2>{id ? "Alterar Produto" : "Cadastro Produto"}</h2>
+           <br/>
             <form onSubmit={handleSubmit(Salvar)}>
                 <div className="row">
                     <div className="form-group col-md-3">
