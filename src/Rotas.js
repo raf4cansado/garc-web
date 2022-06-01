@@ -10,6 +10,7 @@ import ConsultaProduto from "./components/pages/produto/consulta-produto";
 
 
 import ConsultaCliente from "./components/pages/cliente/consulta-cliente";
+import Home from "./components/home/home";
 import ConsultaVenda from "./components/pages/venda/consulta-venda";
 import EntradaProduto from "./components/pages/venda/entrada-produtos";
 
@@ -18,6 +19,8 @@ function Rotas () {
 
    return (
         <Routes>
+            <Route exact path="/" element= {<Home/>}/>
+
             <Route exact path="/cadastro-usuario" element= {<CadastroUsuario/>}/>
             <Route exact path="/cadastro-cliente" element= {<CadastroCliente/>}/>
             <Route exact path="/cadastro-produto" element= {<CadastroProduto/>}/>
