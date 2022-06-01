@@ -8,7 +8,7 @@ const { AppBar } = require("@material-ui/core")
 const db = mysql.createPool({
     host: "localhost",
     user: "root",
-    password: "password",
+    password: "",
     database: "dev-garc"
 })
 
@@ -146,7 +146,7 @@ app.listen(3000, () => {
     console.log("up!")
 })
 
-// ================================================================= CRUD Cliente Pet ===================================================================
+// ================================================================= CRUD Cliente ===================================================================
 app.post('/cadastro-cliente', (req, res) =>{
     console.log("req", req)
     const {nome, cpf, data_nascimento, endereco, complemento, telefone, email} = req.body
@@ -205,5 +205,73 @@ app.delete("/deletar-cliente/:id", (req, res) =>{
     db.query(SQL, (err, result) =>{
         if(err) console.log(err)
         else res.send(result)
+    })
+})
+
+// ================================================================= CRUD Vendas ===================================================================
+app.post("/cadastro-venda", (req, res) => {
+    console.log("req", req)
+    const {id_cliente, nome_cliente_final, id_usuario,  descri} = req.body
+
+    let SQL = `
+    INSERT INTO venda (nome_cliente_final, descricao, id_cliente, id_usuario, data_venda)
+    values (?, ?, ?, ?, sysdate())
+    `
+    db.query(SQL, [nome_cliente_final,  descri, id_cliente, id_usuario], (err, result) => {
+        if (err) console.log(err)
+        else res.send(result)
+
+    })
+})  
+
+app.post("/cadastro-itens-produtos", (req, res) => {
+    console.log("req", req)
+    const {valor, quantidade,  id_produto} = req.body
+
+    let SQL = `
+    INSERT INTO itens_produtos (valor, quantidade,  id_produto, id_venda)
+    values (?, ?, ?, (select max(id_venda) from venda))
+    `
+    db.query(SQL, [valor,  quantidade, id_produto], (err, result) => {
+        if (err) console.log(err)
+        else res.send(result)
+
+    })
+})
+
+app.get("/consulta-venda", (req, res) => {
+    let SQL = `SELECT v.id_venda, v.nome_cliente_final, v.descricao, v.id_cliente,
+    v.id_usuario, DATE_FORMAT(v.data_venda,'%d/%m/%Y %Hh%im') as data_venda FROM venda v`
+    db.query(SQL, (err, result) => {
+        if (err) console.log(err)
+        else res.send(result)
+    })
+})
+
+app.get("/obter-venda/:id", (req, res) => {
+    const id = req.params.id
+    let SQL = `
+        SELECT v.id_venda, v.nome_cliente_final, v.descricao, v.id_cliente,
+        v.id_usuario, DATE_FORMAT(v.data_venda,'%d/%m/%Y') FROM venda v WHERE v.id_venda = ${id};
+    `
+    db.query(SQL, (err, result) => {
+        if (err) console.log(err)
+        else res.send(result)
+    })
+
+})// ================================================================= ENTRADA PRODUTO ===================================================================
+
+app.post("/entrada-produtos", (req, res) => {
+    console.log("req", req)
+    const {id_produto, quantidade, descricao} = req.body
+
+    let SQL = `
+    INSERT INTO produto_entrada (data_registro, id_produto, quantidade, descricao)
+    values (sysdate(), ?, ?, ?)
+    `
+    db.query(SQL, [id_produto,  quantidade, descricao], (err, result) => {
+        if (err) console.log(err)
+        else res.send(result)
+
     })
 })
