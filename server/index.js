@@ -148,7 +148,6 @@ app.listen(3000, () => {
 
 // ================================================================= CRUD Cliente ===================================================================
 app.post('/cadastro-cliente', (req, res) =>{
-    console.log("req", req)
     const {nome, cpf, data_nascimento, endereco, complemento, telefone, email} = req.body
 
     let SQL = `
@@ -210,7 +209,6 @@ app.delete("/deletar-cliente/:id", (req, res) =>{
 
 // ================================================================= CRUD Vendas ===================================================================
 app.post("/cadastro-venda", (req, res) => {
-    console.log("req", req)
     const {id_cliente, nome_cliente_final, id_usuario,  descri} = req.body
 
     let SQL = `
@@ -225,7 +223,6 @@ app.post("/cadastro-venda", (req, res) => {
 })  
 
 app.post("/cadastro-itens-produtos", (req, res) => {
-    console.log("req", req)
     const {valor, quantidade,  id_produto} = req.body
 
     let SQL = `
@@ -262,7 +259,6 @@ app.get("/obter-venda/:id", (req, res) => {
 })// ================================================================= ENTRADA PRODUTO ===================================================================
 
 app.post("/entrada-produtos", (req, res) => {
-    console.log("req", req)
     const {id_produto, quantidade, descricao} = req.body
 
     let SQL = `

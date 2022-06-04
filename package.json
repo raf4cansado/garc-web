@@ -14,6 +14,7 @@
     "bootstrap": "^4.6.0",
     "formik": "^2.2.9",
     "lodash": "^4.17.21",
+    "pdfmake": "^0.2.5",
     "react": "^17.0.2",
     "react-bootstrap": "^2.3.0",
     "react-bootstrap-validation": "^0.1.11",

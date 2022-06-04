@@ -14,6 +14,8 @@ import Home from "./components/home/home";
 import ConsultaVenda from "./components/pages/venda/consulta-venda";
 import EntradaProduto from "./components/pages/venda/entrada-produtos";
 
+import ModalEntrada from "./components/pages/produto/modal-entrada";
+
 // import ConsultaCliente from "./components/pages/cliente/consulta-cliente";
 function Rotas () {
 
@@ -32,7 +34,7 @@ function Rotas () {
             <Route exatc path="/consulta-cliente" element= {<ConsultaCliente/>}/>
             <Route exatc path="/consulta-venda" element= {<ConsultaVenda/>}/>
 
-            {/* <Route exact path="/modal-entrada" element={<ModalEntrada/>}/> */}
+            <Route exact path="/modal-entrada" element={<ModalEntrada/>}/>
 
             <Route exact path="/alterar-usuario/:id" element= {<CadastroUsuario/>}/>
             <Route exact path="/alterar-produto/:id" element= {<CadastroProduto/>}/>  {/* :id indica que id é uma parâmetro */}

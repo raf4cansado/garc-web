@@ -1,10 +1,11 @@
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import modalEntrada from "./modal-entrada";
+import pdfProduto from "../../../relatórios/produto";
 
 function ConsultaProduto() {
     const [listProdutos, setListProdutos] = useState();
+
 
     useEffect(() => {
         ObterDados();
@@ -20,7 +21,7 @@ function ConsultaProduto() {
     const Deletar = (id) => {
         Axios.delete("http://localhost:3000/deletar-produto/" + id, {
 
-        } ).then((response) =>{
+        }).then((response) => {
             ObterDados();
         })
     }
@@ -29,15 +30,19 @@ function ConsultaProduto() {
         <div className="container p-5 mb-3 bg-light text-dark ">
             <div className="space-between">
                 <div><h2>Lista de Produtos</h2></div>
-                <div><Link className="btn btn-primary" to={"/cadastro-produto/"}>Novo</Link></div>
+                <td className="btnAcap">
+                    <Link className="btn btn-primary" to={"/cadastro-produto/"}>Novo</Link>
+                    <button className="btn btn-primary btnAcao" onClick={ () => pdfProduto(listProdutos)}> Imprimir Relatório</button>
+                </td>
+
             </div>
             <table className="table">
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
-                        <th scope="col">Nome Produto</th>
+                        <th scope="col">Produto</th>
                         <th scope="col">Marca</th>
-                        <th scope="col">Tipo Produto</th>
+                        <th scope="col-">Tipo Produto</th>
                         <th scope="col">Cod. de Barras</th>
                         <th scope="col">Descrição</th>
                         <th scope="col" className="acao">Ações</th>
@@ -58,7 +63,8 @@ function ConsultaProduto() {
                                     <td>{item.descricao}</td>
                                     <td className="tdAcao">
                                         <Link className="btn btn-dark btnAcao" to={"/alterar-produto/" + item.id_produto}>Editar</Link>
-                                        <button className="btn btn-dark btnAcao " onClick={()=> Deletar(item.id_produto)}>Excluir</button>
+                                        <button className="btn btn-dark btnAcao " onClick={() => Deletar(item.id_produto)}>Excluir</button>
+                                        <Link className="btn btn-dark btnAcao" to={"/entrada-produtos/"}>Entrada </Link>
                                     </td>
 
                                 </tr>

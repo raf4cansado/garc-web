@@ -37,10 +37,7 @@ function ConsultaVenda() {
                 <div className="col-md-4"><h2>Lista de Vendas</h2></div>
                 <div><Link className="btn btn-primary" to={"/cadastro-venda/"}>Novo</Link></div>
            </div>
-           <div className="space-between">
-                <div className="col-md-4"></div>
-                <div><Link className="btn btn-primary" to={"/entrada-produtos/"}>Entrada Produto..</Link></div>
-           </div>
+          
            <br/>
          
             <table className="table">
