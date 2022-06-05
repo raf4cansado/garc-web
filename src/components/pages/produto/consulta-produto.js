@@ -27,12 +27,12 @@ function ConsultaProduto() {
     }
 
     return (
-        <div className="container p-5 mb-3 bg-light text-dark ">
+        <div className="container p-5 mb-3 bg-light text-dark " style={{ marginTop: 30}}>
             <div className="space-between">
                 <div><h2>Lista de Produtos</h2></div>
                 <td className="btnAcap">
-                    <Link className="btn btn-primary" to={"/cadastro-produto/"}>Novo</Link>
-                    <button className="btn btn-primary btnAcao" onClick={ () => pdfProduto(listProdutos)}> Imprimir Relatório</button>
+                    <Link className="btn btn-dark" to={"/cadastro-produto/"}>Novo</Link>
+                    <button className="btn btn-dark btnAcao" onClick={ () => pdfProduto(listProdutos)}> Imprimir Relatório</button>
                 </td>
 
             </div>

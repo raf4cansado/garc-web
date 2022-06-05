@@ -43,7 +43,7 @@ function CadastroProduto() {
     }
 
     return (
-        <div className="container p-5 mb-3 bg-light text-dark">
+        <div className="container p-5 mb-3 bg-light text-dark" style={{ marginTop: 30}}>
         <h2>{id ? "Alterar Produto" : "Cadastro Produto"}</h2>
            <br/>
             <form onSubmit={handleSubmit(Salvar)}>
@@ -80,7 +80,7 @@ function CadastroProduto() {
                         <textarea className="form-control" id="descricao" name="descricao" rows="3" {...register('descricao')}></textarea>
                     </div>
                     <div className="btnCadastrar">
-                        <button className="btn btn-primary" >{id ? "Alterar" : "Cadastrar"}</button>
+                        <button className="btn btn-dark" >{id ? "Alterar" : "Cadastrar"}</button>
                     </div>
                 </div>
             </form>
