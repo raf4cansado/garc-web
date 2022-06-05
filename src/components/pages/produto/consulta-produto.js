@@ -45,6 +45,7 @@ function ConsultaProduto() {
                         <th scope="col-">Tipo Produto</th>
                         <th scope="col">Cod. de Barras</th>
                         <th scope="col">Descrição</th>
+                        <th scope="col">Quantidade</th>
                         <th scope="col" className="acao">Ações</th>
 
                     </tr>
@@ -61,6 +62,7 @@ function ConsultaProduto() {
                                     <td>{item.tipo_produto}</td>
                                     <td>{item.codigo_barras}</td>
                                     <td>{item.descricao}</td>
+                                    <td>{item.quantidade}</td>
                                     <td className="tdAcao">
                                         <Link className="btn btn-dark btnAcao" to={"/alterar-produto/" + item.id_produto}>Editar</Link>
                                         <button className="btn btn-dark btnAcao " onClick={() => Deletar(item.id_produto)}>Excluir</button>

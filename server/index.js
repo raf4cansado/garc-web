@@ -98,7 +98,9 @@ app.post("/cadastro-produto", (req, res) => {
 })
 
 app.get("/consulta-produto", (req, res) => {
-    let SQL = `SELECT * FROM produto`
+    let SQL = ` select a.id_produto, a.marca, a.tipo_produto, a.codigo_barras, a.descricao, b.quantidade
+    from produto a, estoque b
+    where a.id_produto = b.id_produto`
     db.query(SQL, (err, result) => {
         if (err) console.log(err)
         else res.send(result)

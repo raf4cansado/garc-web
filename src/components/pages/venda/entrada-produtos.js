@@ -110,11 +110,15 @@ function EntradaProduto() {
                         <label htmlFor="inputEmail4">Quantidade:</label>
                         <input type="text" className="form-control" id="quantidade" placeholder="Quantidade" {...register("quantidade")} />
                     </div>
+
                     <div className="btnCadastrar">
                         <button className="btn btn-primary" >{'Confirmar'}</button>
                     </div>
                 </div>
+            
+                
             </form>
+            
         </div>
 
 
