@@ -88,7 +88,7 @@ function CadastroServico() {
 
 
     return (
-        <div className="container p-5 mb-3 bg-light text-dark">
+        <div className="container p-5 mb-3 bg-light text-dark" style={{ marginTop: 30}}>
             <h2>{'Dados do Cliente'}</h2>
             <form onSubmit={handleSubmit(Salvar)}>
                 <div className="row">

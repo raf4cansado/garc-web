@@ -12,7 +12,7 @@ import ConsultaProduto from "./components/pages/produto/consulta-produto";
 import ConsultaCliente from "./components/pages/cliente/consulta-cliente";
 import Home from "./components/home/home";
 import ConsultaVenda from "./components/pages/venda/consulta-venda";
-import EntradaProduto from "./components/pages/venda/entrada-produtos";
+import EntradaProduto from "./components/pages/produto/entrada-produtos";
 
 import ModalEntrada from "./components/pages/produto/modal-entrada";
 

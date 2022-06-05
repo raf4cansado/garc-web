@@ -4,21 +4,8 @@ import { Link } from "react-router-dom";
 
 function Home() {
     return (
-        <div className="container p-5 mb-3 bg-light text-dark ">
-            <div className="space-between">
-                <div><h2>GARC</h2></div>
-            </div>
-            <div>
-                <img src = "/images/sr.png"/>
-                <h4>Usuário</h4>
-            </div>
-            <div>
-                <img src = "/images/client.png"/>
-                <h4>Cliente</h4>
-                </div>
-            <div>
-            
-            </div>
+        <div className="container p-5 mb-3 bg-light text-dark " style={{ marginTop: 30 }} >
+          <h1>Vai da certo  🍃 </h1>
             {/*<div><Link src = '/garc-web/public/sr.png' to={"/cadastro-usuario/"}></Link></div>*/}
         </div>
     );

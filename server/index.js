@@ -265,6 +265,7 @@ app.post("/entrada-produtos", (req, res) => {
     INSERT INTO produto_entrada (data_registro, id_produto, quantidade, descricao)
     values (sysdate(), ?, ?, ?)
     `
+    console.log('SQL: ', SQL);
     db.query(SQL, [id_produto,  quantidade, descricao], (err, result) => {
         if (err) console.log(err)
         else res.send(result)

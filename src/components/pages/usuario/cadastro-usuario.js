@@ -48,7 +48,7 @@ function CadastroUsuario() {
     }
 
     return (
-        <div className="container p-5 mb-3 bg-light text-dark">
+        <div className="container p-5 mb-3 bg-light text-dark" style={{ marginTop: 30}}>
             <h2>{id ? 'Alterar Usuário' : 'Cadastrar Usuário'}</h2>
             <form onSubmit={handleSubmit(Salvar)}>
                 <div className="row">
@@ -77,7 +77,7 @@ function CadastroUsuario() {
                         <input type="text" className="form-control" id="email" placeholder="E-mail" {...register("email")} />
                     </div>
                     <div className="btnCadastrar">
-                        <button className="btn btn-primary " >{id ? 'Alterar' : 'Cadastrar'}</button>
+                        <button className="btn btn-dark " >{id ? 'Alterar' : 'Cadastrar'}</button>
                     </div>
 
                 </div>

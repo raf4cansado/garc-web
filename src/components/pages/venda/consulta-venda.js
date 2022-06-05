@@ -32,10 +32,10 @@ function ConsultaVenda() {
  
     return (
 
-        <div className="container p-5 mb-3 bg-light text-dark ">
+        <div className="container p-5 mb-3 bg-light text-dark " style={{ marginTop: 30}}>
             <div className="space-between">
                 <div className="col-md-4"><h2>Lista de Vendas</h2></div>
-                <div><Link className="btn btn-primary" to={"/cadastro-venda/"}>Novo</Link></div>
+                <div><Link className="btn btn-dark" to={"/cadastro-venda/"}>Novo</Link></div>
            </div>
           
            <br/>

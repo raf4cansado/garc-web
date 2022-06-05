@@ -90,7 +90,7 @@ function EntradaProduto() {
 
 
     return (
-        <div className="container p-5 mb-3 bg-light text-dark">
+        <div className="container p-5 mb-3 bg-light text-dark" style={{ marginTop: 30}}>
             <h2>{'Entrada Produto'}</h2>
             <form onSubmit={handleSubmit(Salvar)}>
                 <div className="row">

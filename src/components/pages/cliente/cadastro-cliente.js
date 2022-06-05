@@ -44,7 +44,7 @@ function CadastroCliente() {
 
     return (
         <div>
-            <div className="container p-5 mb-3 bg-light text-dark">
+            <div className="container p-5 mb-3 bg-light text-dark" style={{ marginTop: 30}}>
                 <h2>{id ?"Alterar Cliente" : "Cadastrar Cliente"}</h2>
                 <form onSubmit={handleSubmit(Salvar)}>
                     <div className="row">
@@ -80,7 +80,7 @@ function CadastroCliente() {
                     </div>
 
                     <div className="btnCadastrar">
-                        <button className="btn btn-primary">{id ? "Alterar " : "Cadastrar"}</button>
+                        <button className="btn btn-dark">{id ? "Alterar " : "Cadastrar"}</button>
                     </div>
                 </form>
             </div>

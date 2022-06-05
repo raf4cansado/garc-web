@@ -28,10 +28,10 @@ function ConsultaCliente() {
 
     return (
 
-        <div className="container p-5 mb-3 bg-light text-dark ">
+        <div className="container p-5 mb-3 bg-light text-dark " style={{ marginTop: 30}}>
             <div className="space-between">
                 <div><h2>Lista de Clientes</h2></div>
-                <div><Link className="btn btn-primary" to={"/cadastro-cliente/"}>Novo</Link></div>
+                <div><Link className="btn btn-dark" to={"/cadastro-cliente/"}>Novo</Link></div>
             </div>
             <table className="table">
                 <thead>
