@@ -98,7 +98,7 @@ app.post("/cadastro-produto", (req, res) => {
 })
 
 app.get("/consulta-produto", (req, res) => {
-    let SQL = ` select a.id_produto, a.marca, a.tipo_produto, a.codigo_barras, a.descricao, b.quantidade
+    let SQL = `select a.id_produto, a.nome_produto, a.marca, a.tipo_produto, a.codigo_barras, a.descricao, b.quantidade
     from produto a, estoque b
     where a.id_produto = b.id_produto`
     db.query(SQL, (err, result) => {
@@ -264,13 +264,22 @@ app.post("/entrada-produtos", (req, res) => {
     const {id_produto, quantidade, descricao} = req.body
 
     let SQL = `
-    INSERT INTO produto_entrada (data_registro, id_produto, quantidade, descricao)
-    values (sysdate(), ?, ?, ?)
+    INSERT INTO produto_entrada (data_registro, id_produto, quantidade)
+    values (sysdate(), ?, ?)
     `
     console.log('SQL: ', SQL);
-    db.query(SQL, [id_produto,  quantidade, descricao], (err, result) => {
+    db.query(SQL, [id_produto,  quantidade], (err, result) => {
         if (err) console.log(err)
         else res.send(result)
 
     })
+})
+
+app.get("/entrada-produtos/:id", (req, res) => {
+    const id = req.params.id
+    let SQL = `SELECT id_produto,nome_produto, marca FROM produto WHERE id_produto = ${id}; `
+    db.query(SQL, (err, result) => {
+        if (err) console.log(err)
+        else res.send(result)
+    }) 
 })

@@ -21,7 +21,7 @@ function pdfProduto(listProdutos) {
             { text: item.marca, style: 'tableHeader', fontSize: 9, margin: [0, 2, 0, 2] },
             { text: item.tipo_produto, style: 'tableHeader', fontSize: 9, margin: [0, 2, 0, 2] },
             { text: item.codigo_barras, style: 'tableHeader', fontSize: 9, margin: [0, 2, 0, 2] },
-            //{ text: 'Quantidade', style: 'tableHeader', fontSize: 9 } // falar com o calors para trazer a quantidade aqui
+            { text: item.quantidade, style: 'tableHeader', fontSize: 9, margin: [0, 2, 0, 2] }
         ]
     });
 
@@ -37,7 +37,7 @@ function pdfProduto(listProdutos) {
                         { text: 'Marca', style: 'tableHeader', fontSize: 10 },
                         { text: 'Tipo Produto', style: 'tableHeader', fontSize: 10 },
                         { text: 'Cod. de Barras', style: 'tableHeader', fontSize: 10 },
-                       // { text: 'Quantidade', style: 'tableHeader', fontSize: 10 }
+                        { text: 'Quantidade', style: 'tableHeader', fontSize: 10 }
                     ],
                     ...dados
                 ]

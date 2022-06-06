@@ -39,6 +39,7 @@ function Rotas () {
             <Route exact path="/alterar-usuario/:id" element= {<CadastroUsuario/>}/>
             <Route exact path="/alterar-produto/:id" element= {<CadastroProduto/>}/>  {/* :id indica que id é uma parâmetro */}
             <Route exact path="/alterar-cliente/:id" element= {<CadastroCliente/>}/>
+            <Route exact path="/entrada-produtos/:id" element= {<EntradaProduto/>}/>
             
             
         </Routes>
