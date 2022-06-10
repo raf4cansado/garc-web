@@ -267,7 +267,7 @@ app.post("/entrada-produtos", (req, res) => {
     INSERT INTO produto_entrada (data_registro, id_produto, quantidade)
     values (sysdate(), ?, ?)
     `
-    console.log('SQL: ', SQL);
+
     db.query(SQL, [id_produto,  quantidade], (err, result) => {
         if (err) console.log(err)
         else res.send(result)
@@ -278,6 +278,25 @@ app.post("/entrada-produtos", (req, res) => {
 app.get("/entrada-produtos/:id", (req, res) => {
     const id = req.params.id
     let SQL = `SELECT id_produto,nome_produto, marca FROM produto WHERE id_produto = ${id}; `
+    db.query(SQL, (err, result) => {
+        if (err) console.log(err)
+        else res.send(result)
+    }) 
+})
+
+
+// ===========================================COMBO CLIENTE =====================================================
+
+app.get("/combo-cliente", (req, res) => {
+    let SQL = `
+    SELECT
+    json_object (
+        'value', id_cliente,
+        'label', UPPER(concat(id_cliente , ' - ' , nome))
+    ) as cliente 
+    FROM cliente  
+    `
+
     db.query(SQL, (err, result) => {
         if (err) console.log(err)
         else res.send(result)
