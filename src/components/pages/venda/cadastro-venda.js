@@ -5,7 +5,7 @@ import mapValues from "lodash/mapValues";
 import Axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../style.css"
-
+import AsyncSelect from 'react-select/async';
 
 function CadastroServico() {
 
@@ -13,6 +13,7 @@ function CadastroServico() {
     const { register, handleSubmit, setValue, formState: { errors } } = useForm({
         shouldUnregister: false
     });
+    const [data, setData] = useState();
 
 
     const navigate = useNavigate();
@@ -26,16 +27,30 @@ function CadastroServico() {
         }
 
     }, [id])
+    
 
+    const InputCliente = (props) => {
+        const [data, setData] = useState([])
+        const filtrar = (value, inputValue) => value.filter(i => i.label.toLowerCase().includes(inputValue.toLowerCase()))
+        const promiseOptions = inputValue => Promise.resolve(Axios.get("http://localhost:3000/combo-cliente")).then(value => filtrar(value.data.map(x => JSON.parse(x.cliente)), inputValue))
 
+        useEffect(() => {
+            Axios.get("http://localhost:3000/combo-cliente").then(response => setData(response.data.map(x => JSON.parse(x.cliente))))
+        }, [])
 
-    // const Obter = (value) => {
+        return (
+            <>
+                <AsyncSelect
+                    tamanho={props.tamanho}
+                    label={props.label}
+                    name={props.name}
+                    loadOptions={promiseOptions}
+                    defaultOptions={data}
+                />
+            </>
+        )
+    }
 
-    //     setValues((prevValue) => ({
-    //         ...prevValue,
-    //         [value.target.name]: value.target.value,
-    //     }))
-    // };
 
     const Salvar = (data) => {
         if (id) {
@@ -56,45 +71,15 @@ function CadastroServico() {
 
     }
 
-    const { idd } = useParams();
-
-    useEffect(() => {
-        if (idd) {
-            Axios.get("http://localhost:3000/obter-venda/" + idd, { id: idd }).then((response) => {
-                mapValues(response.data[0], (value, key) => setValue(key, value));
-            })
-        }
-
-    }, [idd])
-
-    const Salvarr = (data) => {
-        if (idd) {
-            Axios.put("http://localhost:3000/alterar-venda", {
-                id: idd,
-                ...data
-            }).then((response) => {
-                navigate('/consulta-venda')
-            })
-        } else {
-            Axios.post("http://localhost:3000/cadastro-itens-produtos", data).then((response) => {
-                navigate('/cadastro-venda')
-                alert("Produto Adicionado!")
-
-
-            })
-        }
-
-    }
-
 
     return (
-        <div className="container p-5 mb-3 bg-light text-dark" style={{ marginTop: 30}}>
+        <div className="container p-5 mb-3 bg-light text-dark" style={{ marginTop: 30 }}>
             <h2>{'Dados do Cliente'}</h2>
             <form onSubmit={handleSubmit(Salvar)}>
                 <div className="row">
                     <div className="form-group col-md-9">
                         <label htmlFor="nome">Nome / Razão Social:</label>
-                        <input type="text" className="form-control" {...register("nome")} name="nome" id="nome" placeholder="Nome / Razão Social" />
+                        <InputCliente name="nome" id="nome" placeholder="Nome / Razão Social" />
                     </div>
                     <div className="form-group col-md-3">
                         <label htmlFor="cpf">CPF / CNPJ:</label>
@@ -122,10 +107,14 @@ function CadastroServico() {
                         <input type="text" className="form-control" {...register("complemento")} name="complemento" id="complemento" placeholder="Complemento" />
                     </div>
                 </div>
+
+                <h2>{'Produtos'}</h2>
+                <h1>FIELDARRAY AQUI</h1>
+
+
+
             </form>
 
-            <h2>{'Produtos'}</h2>
-            <h1>FIELDARRAY AQUI</h1>
         </div>
 
     )
