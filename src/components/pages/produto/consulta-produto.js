@@ -42,10 +42,10 @@ function ConsultaProduto() {
                         <th scope="col">ID</th>
                         <th scope="col">Produto</th>
                         <th scope="col">Marca</th>
-                        <th scope="col-">Tipo Produto</th>
-                        <th scope="col">Cod. de Barras</th>
+                        <th scope="col">Cod .Barras</th>
                         <th scope="col">Descrição</th>
                         <th scope="col">Quantidade</th>
+                        <th scope="col">Valor</th>
                         <th scope="col" className="acao">Ações</th>
 
                     </tr>
@@ -59,10 +59,10 @@ function ConsultaProduto() {
                                     <th scope="row">{item.id_produto}</th>
                                     <td>{item.nome_produto}</td>
                                     <td>{item.marca}</td>
-                                    <td>{item.tipo_produto}</td>
                                     <td>{item.codigo_barras}</td>
                                     <td>{item.descricao}</td>
                                     <td>{item.quantidade}</td>
+                                    <td>R${item.valor_produto}</td>
                                     <td className="tdAcao">
                                         <Link className="btn btn-dark btnAcao" to={"/alterar-produto/" + item.id_produto}>Editar</Link>
                                         {/* <button className="btn btn-dark btnAcao " onClick={() => Deletar(item.id_produto)}>Excluir</button> */}

@@ -41,8 +41,8 @@ function ConsultaVenda() {
                     <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Cliente</th>
-                        <th scope="col">Valor</th>
-                        <th scope="col">Data Venda</th>
+                        <th scope="col">Valor Total</th>
+                        <th scope="col">Data</th>
 
                     </tr>
                 </thead>
@@ -54,7 +54,7 @@ function ConsultaVenda() {
                                 <tr key ={item.id_venda}>
                                     <th scope="row">{item.id_venda}</th>
                                     <td>{item.nome}</td>
-                                    <td>{item.valor}</td>
+                                    <td>R$ {item.valor_total}</td>
                                     <td>{item.data_venda}</td>
                                     {/* <td className="tdAcao">
                                         <Link className="btn btn-dark btnAcao" to={"/alterar-venda/" + item.id_venda}>Editar</Link>
