@@ -8,10 +8,6 @@ function ConsultaVenda() {
 
 
     useEffect(() => {
-
-      
-
-
        obterDados();
     }, [])
 
@@ -43,13 +39,10 @@ function ConsultaVenda() {
             <table className="table">
                 <thead>
                     <tr>
-                        <th scope="col">Código Venda</th>
+                        <th scope="col">ID</th>
                         <th scope="col">Cliente</th>
-                        <th scope="col">Nome</th>
-                        <th scope="col">Vendedor</th>
-                        <th scope="col">Descrição</th>
+                        <th scope="col">Valor</th>
                         <th scope="col">Data Venda</th>
-                        <th scope="col" className="acao">Ações</th>
 
                     </tr>
                 </thead>
@@ -60,15 +53,13 @@ function ConsultaVenda() {
                             return (
                                 <tr key ={item.id_venda}>
                                     <th scope="row">{item.id_venda}</th>
-                                    <td>{item.id_cliente}</td>
-                                    <td>{item.nome_cliente_final}</td>
-                                    <td>{item.id_usuario}</td>
-                                    <td>{item.descricao}</td>
+                                    <td>{item.nome}</td>
+                                    <td>{item.valor}</td>
                                     <td>{item.data_venda}</td>
-                                    <td className="tdAcao">
+                                    {/* <td className="tdAcao">
                                         <Link className="btn btn-dark btnAcao" to={"/alterar-venda/" + item.id_venda}>Editar</Link>
                                         <button className="btn btn-dark btnAcao " onClick={() => Deletar(item.id_venda)}>Excluir</button>
-                                    </td>
+                                    </td> */}
 
                                 </tr>
                             )

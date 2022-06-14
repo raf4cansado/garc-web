@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 function Home() {
     return (
         <div className="container p-5 mb-3 bg-light text-dark " style={{ marginTop: 30 }} >
-          <h1>Vai da certo  🍃 </h1>
+          <h1> Gráfico </h1>
             {/*<div><Link src = '/garc-web/public/sr.png' to={"/cadastro-usuario/"}></Link></div>*/}
         </div>
     );
