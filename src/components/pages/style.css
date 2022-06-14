@@ -31,3 +31,10 @@
     margin-block: auto;
     margin-right: 3px;
 }
+
+.home {
+    max-width: 500px;
+    max-height: 200px;
+    width: auto;
+    height: auto;
+}

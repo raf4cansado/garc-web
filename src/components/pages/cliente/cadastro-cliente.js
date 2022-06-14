@@ -58,7 +58,7 @@ function CadastroCliente() {
                         </div>
                         <div className="form-group col-md-3">
                             <label htmlFor="data_nascimento">Data de Nascimento</label>
-                            <input type="text" className="form-control"{...register("data_nascimento")} name="data_nascimento" id="data_nascimento" placeholder="DD/MM/YYYY" />
+                            <input type="text" className="form-control"{...register("data_nascimento")} name="data_nascimento" id="data_nascimento" placeholder="Data de Nascimento" />
                         </div>
                         <div className="form-group col-md-6">
                             <label htmlFor="email">Email:</label>

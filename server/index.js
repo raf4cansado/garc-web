@@ -4,6 +4,7 @@ const mysql = require("mysql")
 const cors = require("cors")
 const { result } = require("lodash")
 const { AppBar } = require("@material-ui/core")
+const moment = require("moment")
 
 const db = mysql.createPool({
     host: "localhost",
@@ -102,7 +103,7 @@ app.post("/cadastro-produto", (req, res) => {
 })
 
 app.get("/consulta-produto", (req, res) => {
-    let SQL = `select a.id_produto, a.nome_produto, a.marca, a.tipo_produto, a.codigo_barras, a.descricao, b.quantidade
+    let SQL = `select a.id_produto, a.nome_produto, a.marca, a.tipo_produto, a.codigo_barras, a.valor_produto, a.descricao, b.quantidade
     from produto a, estoque b
     where a.id_produto = b.id_produto`
     db.query(SQL, (err, result) => {
@@ -227,29 +228,31 @@ app.post("/cadastro-venda", async (req, res) => {
     `
     await db.query(SQL, [objVenda.id_cliente], (err, result) => {
         if (err) console.log(err)
-        else {idVenda = result.insertId
-        retorno= result} 
+        else {
+            retorno = result
+            idVenda = result.insertId
+            for (let index = 0; index < produtos.length; index++) {
+                if (produtos[index].produto && produtos[index].produto.value) {
+                    const objProduto = {
+                        VALOR: produtos[index].valor_produto,
+                        QUANTIDADE: produtos[index].quantidade,
+                        ID_PRODUTO: produtos[index].produto.value,
+                        ID_VENDA: idVenda
+                    }
+
+                    let sqlProduto = `INSERT into itens_produtos (VALOR, QUANTIDADE, ID_PRODUTO, ID_VENDA)
+                    VALUES (?, ?, ?, ?)`
+
+                     db.query(sqlProduto, [objProduto.VALOR, objProduto.QUANTIDADE, objProduto.ID_PRODUTO, objProduto.ID_VENDA], (err, result) => {
+                        if (err) console.log(err)
+                    })
+
+                }
+            }
+        }
 
     })
 
-    for (let index = 0; index < produtos.length; index++) {
-        if (produtos[index].produto && produtos[index].produto.value) {
-            const objProduto = {
-                VALOR: produtos[index].valor_produto,
-                QUANTIDADE: produtos[index].quantidade,
-                ID_PRODUTO: produtos[index].produto.value,
-                ID_VENDA: idVenda
-            }
-
-            let sqlProduto = `INSERT into itens_produtos (VALOR, QUANTIDADE, ID_PRODUTO, ID_VENDA)
-            VALUES (?, ?, ?, ?)`
-
-            await db.query(SQL, [objProduto.VALOR, objProduto.QUANTIDADE, objProduto.ID_PRODUTO, objProduto.ID_VENDA], (err, result) => {
-                if (err) console.log(err)
-            })
-
-        }
-    }
     res.send(retorno)
 })
 
@@ -268,9 +271,18 @@ app.post("/cadastro-itens-produtos", (req, res) => {
 })
 
 app.get("/consulta-venda", (req, res) => {
-    let SQL = `SELECT v.id_venda, v.nome_cliente_final, v.descricao, v.id_cliente, cliente.nome,
-    v.id_usuario, DATE_FORMAT(v.data_venda,'%d/%m/%Y %Hh%im') as data_venda FROM venda v
-    inner join cliente on ( cliente.id_cliente = v.id_cliente)`
+    let SQL = `    SELECT v.id_venda, v.nome_cliente_final, v.descricao, v.id_cliente, cliente.nome,
+    v.id_usuario, DATE_FORMAT(v.data_venda,'%d/%m/%Y %Hh%im') as data_venda, (itens_produtos.valor * itens_produtos.quantidade)  , sum(itens_produtos.valor * itens_produtos.quantidade) as valor_total
+    FROM venda v
+
+    inner join cliente on ( cliente.id_cliente = v.id_cliente)
+    inner join itens_produtos on (itens_produtos.ID_VENDA = v.id_venda)
+    
+    group by
+    itens_produtos.id_venda 
+    order by
+    itens_produtos.id_venda
+    `
     db.query(SQL, (err, result) => {
         if (err) console.log(err)
         else res.send(result)
