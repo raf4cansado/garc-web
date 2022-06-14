@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import Axios from "axios";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import mapValues from "lodash/mapValues";
-
+import swal from 'sweetalert'
 
 function CadastroProduto() {    
 
@@ -32,10 +32,12 @@ function CadastroProduto() {
                 id: id,
                 ...data
             }).then((response) => {
+                swal("Concluído", "Alteracão Realizada", "success");
                 navigate('/consulta-produto')
             })
         } else {
             Axios.post("http://localhost:3000/cadastro-produto", data).then((response) => {
+                swal("Concluído", "Cadastro Realizado", "success");
                 navigate('/consulta-produto')
             })
         }

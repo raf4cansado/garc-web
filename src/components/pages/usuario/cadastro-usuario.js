@@ -5,6 +5,7 @@ import mapValues from "lodash/mapValues";
 import Axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../../pages/style.css"
+import swal from 'sweetalert';
 
 function CadastroUsuario() {
 
@@ -37,10 +38,12 @@ function CadastroUsuario() {
                 id: id,
                 ...data
             }).then((response) => {
+                swal("Concluído", "Alteracão Realizada", "success");
                 navigate('/consulta-usuario')
             })
         } else {
             Axios.post("http://localhost:3000/cadastro-usuario", data).then((response) => {
+                swal("Concluído", "Cadastro Realizado", "success");
                 navigate('/consulta-usuario')
 
             })
