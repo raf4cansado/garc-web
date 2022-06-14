@@ -5,6 +5,7 @@ import mapValues from "lodash/mapValues";
 import Axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../style.css"
+import swal from 'sweetalert';
 
 
 function EntradaProduto() {
@@ -31,8 +32,8 @@ function EntradaProduto() {
     const Salvar = (data) => {
         if (id) {
             Axios.post("http://localhost:3000/entrada-produtos", data).then((response) => {
+                swal("Concluído", "Entrada Realizada", "success");
                 navigate('/consulta-produto')
-                alert('produto lançado')
             })
 
         }

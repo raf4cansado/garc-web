@@ -5,6 +5,7 @@ import mapValues from "lodash/mapValues";
 import Axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../style.css"
+import swal from 'sweetalert';
 
 function CadastroCliente() {
     const { register, handleSubmit, setValue } = useForm({
@@ -30,12 +31,14 @@ function CadastroCliente() {
                 id: id,
                 ...data
             }).then((response) =>{
+                swal("Concluído", "Alteracão Realizada", "success");
                 navigate("/consulta-cliente")
 
             })
 
         } else {
             Axios.post("http://localhost:3000/cadastro-cliente", data).then((response) => {
+                swal("Concluído", "Cadastro Realizado", "success");
                 navigate("/consulta-cliente")
             })
         }

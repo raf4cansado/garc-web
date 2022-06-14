@@ -5,6 +5,7 @@ import mapValues from "lodash/mapValues";
 import Axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../style.css"
+import swal from 'sweetalert';
 import AsyncSelect from 'react-select/async';
 
 function CadastroServico() {
@@ -176,8 +177,8 @@ function CadastroServico() {
             })
         } else {
             Axios.post("http://localhost:3000/cadastro-venda", data).then((response) => {
+                swal("Concluído", "Venda Realizada", "success");
                 navigate('/consulta-venda')
-                alert("Pedido Feito!")
 
 
             })
