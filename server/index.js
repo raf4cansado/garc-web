@@ -15,6 +15,10 @@ const db = mysql.createPool({
 app.use(cors());
 app.use(express.json());
 
+app.listen(3000, () => {
+    console.log("up!")
+})
+
 // ================================================================= CRUD USUARIO ===================================================================
 app.post("/cadastro-usuario", (req, res) => {
     const { usuario } = req.body
@@ -83,8 +87,8 @@ app.delete("/deletar-usuario/:id", (req, res) => {
 // ================================================================= CRUD Produto ===================================================================
 
 app.post("/cadastro-produto", (req, res) => {
-    
-    const { nome_produto, marca, tipo_produto, codigo_barras,valor_produto, descricao } = req.body
+
+    const { nome_produto, marca, tipo_produto, codigo_barras, valor_produto, descricao } = req.body
 
     let SQL = `
         INSERT INTO produto (nome_produto, marca, tipo_produto, codigo_barras, valor_produto, descricao)
@@ -114,7 +118,7 @@ app.get("/obter-produto/:id", (req, res) => {
     db.query(SQL, (err, result) => {
         if (err) console.log(err)
         else res.send(result)
-    }) 
+    })
 })
 
 app.put('/alterar-produto', (req, res) => {
@@ -124,114 +128,139 @@ app.put('/alterar-produto', (req, res) => {
             where id_produto = ? 
     `
 
-    db.query(SQL,[obj.nome_produto, obj.marca, obj.tipo_produto, obj.codigo_barras, obj.valor_produto, obj.descricao, obj.id_produto],
-        (err, result) =>{
-            if(err) console.log(err)
+    db.query(SQL, [obj.nome_produto, obj.marca, obj.tipo_produto, obj.codigo_barras, obj.valor_produto, obj.descricao, obj.id_produto],
+        (err, result) => {
+            if (err) console.log(err)
             else res.send(result)
         })
 
 
 })
 
-app.delete('/deletar-produto/:id', (req, res) =>{
+app.delete('/deletar-produto/:id', (req, res) => {
     const id = req.params.id
     let SQL = `
         DELETE FROM produto WHERE id_produto = ${id}
     `
-    db.query(SQL, (err, result) =>{
-        if(err) console.log(err)
+    db.query(SQL, (err, result) => {
+        if (err) console.log(err)
         else res.send(result)
     })
 })
 
-app.listen(3000, () => {
-    console.log("up!")
-})
+
 
 // ================================================================= CRUD Cliente ===================================================================
-app.post('/cadastro-cliente', (req, res) =>{
-    const {nome, cpf, data_nascimento, endereco, complemento, telefone, email} = req.body
+app.post('/cadastro-cliente', (req, res) => {
+    const { nome, cpf, data_nascimento, endereco, complemento, telefone, email } = req.body
 
     let SQL = `
     INSERT INTO cliente (nome, cpf, data_nascimento, endereco, complemento, telefone, email, data_registro) 
     values (?, ?, ?, ?, ?, ?, ?, now()) 
     `
-    db.query(SQL, [nome, cpf, data_nascimento, endereco, complemento, telefone, email], (err, result) =>{
-        if(err) console.log(err)
-        else res.send(result)
-    } )
-})
-
-app.get("/consulta-cliente", (req, res) =>{
-    let SQL = `
-            SELECT * FROM cliente;
-    `
-    db.query(SQL, (err, result) =>{
-        if(err) console.log(err)
+    db.query(SQL, [nome, cpf, data_nascimento, endereco, complemento, telefone, email], (err, result) => {
+        if (err) console.log(err)
         else res.send(result)
     })
 })
 
-app.get("/obter-cliente/:id", (req, res) =>{
+app.get("/consulta-cliente", (req, res) => {
+    let SQL = `
+            SELECT * FROM cliente;
+    `
+    db.query(SQL, (err, result) => {
+        if (err) console.log(err)
+        else res.send(result)
+    })
+})
+
+app.get("/obter-cliente/:id", (req, res) => {
     let id = req.params.id
     let SQL = `
     SELECT * FROM cliente WHERE  id_cliente = ${id}; 
     `
-    db.query(SQL,(err, result) =>{
-        if(err) console.log(err)
+    db.query(SQL, (err, result) => {
+        if (err) console.log(err)
         else res.send(result)
     })
 })
 
-app.put("/alterar-cliente", (req, res) =>{
+app.put("/alterar-cliente", (req, res) => {
     const obj = req.body
     let SQL = `
      UPDATE cliente SET  nome = ?, cpf = ?, data_nascimento = ?, endereco = ?, complemento = ?, telefone = ?, email = ? 
      WHERE id_cliente = ?
     `
 
-    db.query(SQL,[obj.nome, obj.cpf, obj.data_nascimento, obj.endereco, obj.complemento, obj.telefone, obj.email, obj.id_cliente], (err, result) =>{
-        if(err) console.log(err)
+    db.query(SQL, [obj.nome, obj.cpf, obj.data_nascimento, obj.endereco, obj.complemento, obj.telefone, obj.email, obj.id_cliente], (err, result) => {
+        if (err) console.log(err)
         else res.send(result)
     })
 })
 
-app.delete("/deletar-cliente/:id", (req, res) =>{
+app.delete("/deletar-cliente/:id", (req, res) => {
     const id = req.params.id
 
-    let SQL  =`
+    let SQL = `
     DELETE FROM cliente WHERE id_cliente = ${id}
     `
 
-    db.query(SQL, (err, result) =>{
-        if(err) console.log(err)
+    db.query(SQL, (err, result) => {
+        if (err) console.log(err)
         else res.send(result)
     })
 })
 
 // ================================================================= CRUD Vendas ===================================================================
-app.post("/cadastro-venda", (req, res) => {
-    const {id_cliente, nome_cliente_final, id_usuario,  descri} = req.body
+app.post("/cadastro-venda", async (req, res) => {
+    let retorno = {}
+    const { nome, produtos } = req.body
+    const objVenda = {
+        id_cliente: nome.value
+    }
+
+    let idVenda = 0
 
     let SQL = `
-    INSERT INTO venda (nome_cliente_final, descricao, id_cliente, id_usuario, data_venda)
-    values (?, ?, ?, ?, sysdate())
+    INSERT INTO venda (id_cliente)
+    values (?)
     `
-    db.query(SQL, [nome_cliente_final,  descri, id_cliente, id_usuario], (err, result) => {
+    await db.query(SQL, [objVenda.id_cliente], (err, result) => {
         if (err) console.log(err)
-        else res.send(result)
+        else {idVenda = result.insertId
+        retorno= result} 
 
     })
-})  
+
+    for (let index = 0; index < produtos.length; index++) {
+        if (produtos[index].produto && produtos[index].produto.value) {
+            const objProduto = {
+                VALOR: produtos[index].valor_produto,
+                QUANTIDADE: produtos[index].quantidade,
+                ID_PRODUTO: produtos[index].produto.value,
+                ID_VENDA: idVenda
+            }
+
+            let sqlProduto = `INSERT into itens_produtos (VALOR, QUANTIDADE, ID_PRODUTO, ID_VENDA)
+            VALUES (?, ?, ?, ?)`
+
+            await db.query(SQL, [objProduto.VALOR, objProduto.QUANTIDADE, objProduto.ID_PRODUTO, objProduto.ID_VENDA], (err, result) => {
+                if (err) console.log(err)
+            })
+
+        }
+    }
+    res.send(retorno)
+})
 
 app.post("/cadastro-itens-produtos", (req, res) => {
-    const {valor, quantidade,  id_produto} = req.body
+    const { valor, quantidade, id_produto } = req.body
 
     let SQL = `
     INSERT INTO itens_produtos (valor, quantidade,  id_produto, id_venda)
     values (?, ?, ?, (select max(id_venda) from venda))
     `
-    db.query(SQL, [valor,  quantidade, id_produto], (err, result) => {
+    db.query(SQL, [valor, quantidade, id_produto], (err, result) => {
         if (err) console.log(err)
         else res.send(result)
 
@@ -239,8 +268,9 @@ app.post("/cadastro-itens-produtos", (req, res) => {
 })
 
 app.get("/consulta-venda", (req, res) => {
-    let SQL = `SELECT v.id_venda, v.nome_cliente_final, v.descricao, v.id_cliente,
-    v.id_usuario, DATE_FORMAT(v.data_venda,'%d/%m/%Y %Hh%im') as data_venda FROM venda v`
+    let SQL = `SELECT v.id_venda, v.nome_cliente_final, v.descricao, v.id_cliente, cliente.nome,
+    v.id_usuario, DATE_FORMAT(v.data_venda,'%d/%m/%Y %Hh%im') as data_venda FROM venda v
+    inner join cliente on ( cliente.id_cliente = v.id_cliente)`
     db.query(SQL, (err, result) => {
         if (err) console.log(err)
         else res.send(result)
@@ -261,14 +291,14 @@ app.get("/obter-venda/:id", (req, res) => {
 })// ================================================================= ENTRADA PRODUTO ===================================================================
 
 app.post("/entrada-produtos", (req, res) => {
-    const {id_produto, quantidade, descricao} = req.body
+    const { id_produto, quantidade, descricao } = req.body
 
     let SQL = `
     INSERT INTO produto_entrada (data_registro, id_produto, quantidade)
     values (sysdate(), ?, ?)
     `
 
-    db.query(SQL, [id_produto,  quantidade], (err, result) => {
+    db.query(SQL, [id_produto, quantidade], (err, result) => {
         if (err) console.log(err)
         else res.send(result)
 
@@ -281,7 +311,7 @@ app.get("/entrada-produtos/:id", (req, res) => {
     db.query(SQL, (err, result) => {
         if (err) console.log(err)
         else res.send(result)
-    }) 
+    })
 })
 
 
@@ -292,7 +322,13 @@ app.get("/combo-cliente", (req, res) => {
     SELECT
     json_object (
         'value', id_cliente,
-        'label', UPPER(concat(id_cliente , ' - ' , nome))
+        'label', UPPER(concat(id_cliente , ' - ' , nome)),
+        'cpf', cpf,
+        'data_nascimento', data_nascimento,
+        'email', email,
+        'endereco', endereco,
+        'complemento', complemento
+
     ) as cliente 
     FROM cliente  
     `
@@ -300,5 +336,24 @@ app.get("/combo-cliente", (req, res) => {
     db.query(SQL, (err, result) => {
         if (err) console.log(err)
         else res.send(result)
-    }) 
+    })
+})
+
+// ===========================================COMBO Produto =====================================================
+
+app.get("/combo-produto", (req, res) => {
+    let SQL = `
+    SELECT
+    json_object (
+        'value', id_produto,
+        'label', UPPER(concat(id_produto , ' - ' , nome_produto)),
+        'valor_produto', valor_produto
+    ) as produto 
+    FROM produto
+    `
+
+    db.query(SQL, (err, result) => {
+        if (err) console.log(err)
+        else res.send(result)
+    })
 })

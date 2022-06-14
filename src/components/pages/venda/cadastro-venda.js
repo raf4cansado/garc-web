@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useFieldArray, Controller, useWatch } from "react-hook-form";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import mapValues from "lodash/mapValues";
 import Axios from "axios";
@@ -9,15 +9,22 @@ import AsyncSelect from 'react-select/async';
 
 function CadastroServico() {
 
-
-    const { register, handleSubmit, setValue, formState: { errors } } = useForm({
-        shouldUnregister: false
+    const { register, handleSubmit, getValues, setValue, formState: { errors }, control, reset, watch } = useForm({
+        shouldUnregister: false,
+        defaultValues: {
+            produtos: [{ produto: "", quantidade: "", valor_produto: "" }]
+        }
     });
     const [data, setData] = useState();
-
-
+    const [valorTotal, setValorTotal] = useState();
     const navigate = useNavigate();
     const { id } = useParams();
+
+    useEffect(() => {
+        setValorTotal(getValues().produtos.map(x => x.valor_produto * (x.quantidade || 1)).reduce((pcc, cv) => pcc + cv, 0))
+
+
+    }, [getValues().produtos])
 
     useEffect(() => {
         if (id) {
@@ -27,7 +34,7 @@ function CadastroServico() {
         }
 
     }, [id])
-    
+
 
     const InputCliente = (props) => {
         const [data, setData] = useState([])
@@ -41,14 +48,121 @@ function CadastroServico() {
         return (
             <>
                 <AsyncSelect
+                    {...props}
                     tamanho={props.tamanho}
                     label={props.label}
                     name={props.name}
+                    placeholder={'Cliente'}
+                    loadOptions={promiseOptions}
+                    defaultOptions={data}
+                    onChange={option => {
+                    setValue(props.name, option)
+                    setValue('cpf', option.cpf)
+                    setValue('data_nascimento', option.data_nascimento)
+                    setValue('email', option.email)
+                    setValue('endereco', option.endereco)
+                    setValue('complemento', option.complemento)
+                }}
+                />
+            </>
+        )
+    }
+
+    const InputProduto = (props) => {
+        const [data, setData] = useState([])
+        const filtrar = (value, inputValue) => value.filter(i => i.label.toLowerCase().includes(inputValue.toLowerCase()))
+        const promiseOptions = inputValue => Promise.resolve(Axios.get("http://localhost:3000/combo-produto")).then(value => filtrar(value.data.map(x => JSON.parse(x.produto)), inputValue))
+
+        useEffect(() => {
+            Axios.get("http://localhost:3000/combo-produto").then(response => setData(response.data.map(x => JSON.parse(x.produto))))
+        }, [])
+        return (
+            <>
+                <AsyncSelect
+                    {...props}
+                    tamanho={props.tamanho}
+                    label={props.label}
+                    name={props.name}
+                    placeholder={'Produto'}
                     loadOptions={promiseOptions}
                     defaultOptions={data}
                 />
             </>
         )
+    }
+
+    const FieldArrayProduto = () => {
+
+        const [listProdutos, setListProdutos] = useState();
+
+        useEffect(() => {
+            ObterDados();
+        }, [])
+
+        const ObterDados = () => {
+            Axios.get("http://localhost:3000/consulta-produto").then((response) => {
+                setListProdutos(response.data);
+
+            })
+        }
+
+
+        const {
+            fields,
+            append,
+            remove,
+            update,
+        } = useFieldArray({
+            control,
+            name: "produtos"
+        });
+
+        return (
+            <div>
+                <ul>
+                    {fields.map((item, index) => {
+                        return (
+
+                            <div key={item.id} className="row">
+                                <div className="form-group col-md-4">
+                                    <label htmlFor="produto">Produto</label>
+                                    <Controller
+                                        name={`produtos[${index}].produto`}
+                                        control={control}
+                                        render={({ field }) => (
+                                            <InputProduto id={`produtos[${index}].produto`}
+                                                {...field} onChange={option => {
+                                                    update(index, { produto: option, valor_produto: option.valor_produto })
+                                                }} />
+                                        )}
+                                    />
+                                </div>
+                                <div className="form-group col-md-2">
+                                    <label htmlFor="valor_produto">Valor Unitário</label>
+                                    <input type="text" className="form-control"{...register(`produtos[${index}].valor_produto`)} name={`produtos[${index}].valor_produto`} id={`produtos[${index}].valor_produto`}/>
+                                </div>
+                                <div className="form-group col-md-2">
+                                    <label htmlFor="quantidade">Quantidade</label>
+                                    <input type="text" className="form-control"{...register(`produtos[${index}].quantidade`)} name={`produtos[${index}].quantidade`} id={`produtos[${index}].quantidade`} />
+                                </div>
+
+                                <button className="btnVenda btn btn-dark" onClick={() => remove(index)}>Excluir</button>
+                                <button className=" btnVenda btn btn-dark"
+                                    type="button"
+                                    onClick={() => {
+                                        append({ produto: "", quantidade: "", valor_produto: "" });
+                                    }}
+                                >Adicionar</button>
+                            </div>
+                        );
+                    })}
+                </ul>
+                <div className="form-group col-md-2">
+                    <label htmlFor="valor_total">Valor Total: R$ {valorTotal}</label>
+                </div>
+
+            </div>
+        );
     }
 
 
@@ -62,7 +176,7 @@ function CadastroServico() {
             })
         } else {
             Axios.post("http://localhost:3000/cadastro-venda", data).then((response) => {
-                navigate('/cadastro-venda')
+                navigate('/consulta-venda')
                 alert("Pedido Feito!")
 
 
@@ -79,15 +193,22 @@ function CadastroServico() {
                 <div className="row">
                     <div className="form-group col-md-9">
                         <label htmlFor="nome">Nome / Razão Social:</label>
-                        <InputCliente name="nome" id="nome" placeholder="Nome / Razão Social" />
+                        <Controller
+                            name={`nome`}
+                            control={control}
+                            render={({ field }) => (
+                                <InputCliente name="nome" id="nome"
+                                    {...field} />
+                            )}
+                        />
                     </div>
                     <div className="form-group col-md-3">
                         <label htmlFor="cpf">CPF / CNPJ:</label>
                         <input type="text" className="form-control"{...register("cpf")} name="cpf" id="cpf" placeholder="CPF / CNPJ" />
                     </div>
                     <div className="form-group col-md-3">
-                        <label htmlFor="data_nascimento">Data de Nascimento</label>
-                        <input type="text" className="form-control"{...register("data_nascimento")} name="data_nascimento" id="data_nascimento" placeholder="DD/MM/YYYY" />
+                        <label htmlFor="data_nascimento">Data de Nascimento:</label>
+                        <input type="text" className="form-control"{...register("data_nascimento")} name="data_nascimento" id="data_nascimento" placeholder="Data de Nascimento:" />
                     </div>
                     <div className="form-group col-md-6">
                         <label htmlFor="email">Email:</label>
@@ -109,7 +230,11 @@ function CadastroServico() {
                 </div>
 
                 <h2>{'Produtos'}</h2>
-                <h1>FIELDARRAY AQUI</h1>
+                <div className="row">
+                    <FieldArrayProduto />
+                </div>
+                <input className="btnCadastrar btn btn-dark" type="submit" />
+
 
 
 
